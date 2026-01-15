@@ -1,0 +1,33 @@
+{
+  "feature_names": [
+    "days_since_first_order",
+    "days_since_last_order",
+    "purchase_frequency_30d",
+    "purchase_frequency_90d",
+    "avg_basket_value",
+    "product_category_diversity",
+    "avg_days_between_orders",
+    "total_revenue",
+    "avg_order_value",
+    "max_order_value",
+    "total_orders",
+    "email_open_rate_30d",
+    "website_visits_30d",
+    "cart_abandonment_rate",
+    "month",
+    "day_of_week",
+    "is_holiday_season"
+  ],
+  "model_params": {
+    "n_estimators": 200,
+    "max_depth": 6,
+    "learning_rate": 0.05,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "min_child_weight": 3,
+    "scale_pos_weight": 4.5,
+    "random_state": 42
+  },
+  "trained_at": "2026-01-14T02:24:49.344548",
+  "random_seed": 42
+}

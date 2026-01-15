@@ -1,0 +1,107 @@
+# Configuration du projet Churn Prediction
+# Ce fichier centralise tous les paramètres du projet pour faciliter la maintenance
+
+project:
+  name: "churn_prediction"
+  version: "1.0.0"
+  random_seed: 42
+
+data:
+  # Chemins des données
+  raw_data_path: "data/raw/customers.csv"
+  processed_data_path: "data/processed/features.csv"
+  
+  # Paramètres de préparation
+  train_months: 12  # Nombre de mois pour l'entraînement
+  test_months: 3    # Nombre de mois pour le test
+  churn_window_days: 30  # Fenêtre de prédiction (jours avant churn)
+  
+  # Colonnes attendues dans les données brutes
+  columns:
+    customer_id: "customer_id"
+    order_date: "order_date"
+    order_value: "order_value"
+    product_category: "product_category"
+    email_opened: "email_opened"
+    website_visit: "website_visit"
+    cart_abandoned: "cart_abandoned"
+
+features:
+  # Features comportementales
+  behavioral:
+    - days_since_last_purchase
+    - purchase_frequency_30d
+    - purchase_frequency_90d
+    - avg_basket_value
+    - product_category_diversity
+    - avg_days_between_orders
+  
+  # Features transactionnelles
+  transactional:
+    - total_orders
+    - total_revenue
+    - avg_order_value
+    - max_order_value
+    - refund_rate
+    - return_rate
+  
+  # Features d'engagement
+  engagement:
+    - email_open_rate_30d
+    - website_visits_30d
+    - cart_abandonment_rate
+    - time_on_site_avg
+  
+  # Features temporelles
+  temporal:
+    - month
+    - day_of_week
+    - is_holiday_season
+
+model:
+  # Paramètres XGBoost
+  algorithm: "xgboost"
+  params:
+    n_estimators: 200
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_weight: 3
+    scale_pos_weight: 4.5  # Gestion du déséquilibre (18% churn)
+    random_state: 42
+  
+  # Validation
+  validation:
+    method: "time_series_split"  # Time-series split obligatoire
+    test_size: 0.2
+  
+  # Métriques
+  metrics:
+    primary: "f1_score"
+    secondary: ["precision", "recall", "roc_auc"]
+  
+  # Seuils
+  risk_threshold_high: 0.7    # Score > 0.7 = risque élevé
+  risk_threshold_medium: 0.4  # Score 0.4-0.7 = risque moyen
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  reload: false  # Production = false
+  log_level: "info"
+
+monitoring:
+  # Détection de drift
+  drift_threshold: 0.2  # PSI > 0.2 = drift significatif
+  check_frequency: "weekly"  # Vérification hebdomadaire
+  
+  # Alertes
+  alert_on_drift: true
+  alert_on_performance_degradation: true
+  performance_degradation_threshold: 0.05  # -5% accuracy
+
+paths:
+  models: "models/"
+  logs: "logs/"
+  reports: "reports/"

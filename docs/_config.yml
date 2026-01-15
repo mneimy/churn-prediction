@@ -1,0 +1,17 @@
+# Configuration Jekyll pour GitHub Pages
+title: Prédiction de Churn Client
+description: Projet de prédiction de churn client avec Machine Learning. Modèle XGBoost production-ready avec API FastAPI.
+theme: minima
+
+# Configuration GitHub Pages
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclure certains fichiers
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insight : Fréquence d’achat | Prédiction de Churn</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body { background: #f8fafc; }
+        .viz-wrapper { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        .viz-header { margin-bottom: 16px; }
+        .viz-subtitle { color: #4b5563; margin-top: 8px; }
+        .viz-text { background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .viz-text p { margin: 0 0 12px 0; line-height: 1.6; }
+        .viz-chart { margin-top: 20px; background: #ffffff; border-radius: 12px; padding: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .viz-actions { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .viz-link { display: inline-block; padding: 10px 14px; border-radius: 8px; background: #111827; color: #ffffff; text-decoration: none; }
+        .viz-link.secondary { background: #e5e7eb; color: #111827; }
+        iframe { width: 100%; height: 820px; border: 0; }
+    </style>
+</head>
+<body>
+    <div class="viz-wrapper">
+        <div class="viz-header">
+            <a class="viz-link secondary" href="../index.html">← Retour à la page projet</a>
+            <h1>Insight : Fréquence d’achat</h1>
+            <p class="viz-subtitle">Plus la fréquence est élevée, plus le churn diminue</p>
+        </div>
+        <div class="viz-text">
+            <p>Les clients avec peu d’achats sur 30 jours ont un churn beaucoup plus élevé.</p>
+            <p>Les segments à faible fréquence génèrent aussi moins de revenus moyens.</p>
+            <p>Action recommandée : stimuler la fréquence des segments 0–1 et 2–3 achats.</p>
+        </div>
+        <div class="viz-chart">
+            <iframe src="raw/insight_purchase_frequency.html" title="Insight fréquence d’achat"></iframe>
+        </div>
+        <div class="viz-actions">
+            <a class="viz-link" href="../index.html#demo">Voir la démo complète</a>
+            <a class="viz-link secondary" href="../index.html#impact">Retour à l’impact</a>
+        </div>
+    </div>
+</body>
+</html>
