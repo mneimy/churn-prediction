@@ -111,15 +111,6 @@ Ces visualisations peuvent être :
 3. **Incluses dans une présentation** : Export PDF ou images
 4. **Démontrées en entretien** : Ouvrir le dashboard en direct
 
-## 📝 Personnalisation
-
-Pour personnaliser les visualisations :
-
-1. Modifier les couleurs dans `create_visualizations.py`
-2. Ajouter de nouvelles métriques
-3. Créer des visualisations spécifiques à votre cas d'usage
-4. Adapter le storytelling à votre audience
-
 ---
 
-**Ces visualisations démontrent vos compétences en Data Science et storytelling !** 🚀
+**Visualisations créées pour démontrer les compétences en Data Science et storytelling.** 🚀

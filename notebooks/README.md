@@ -86,4 +86,4 @@ Ce notebook démontre :
 
 ---
 
-**Le notebook est maintenant complet et prêt pour démontrer vos compétences !** 🚀
+**Notebook complet pour démontrer les compétences en analyse de données et storytelling.** 🚀

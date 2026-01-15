@@ -1,5 +1,7 @@
 # Prédiction de Churn Client | E-commerce
 
+> **Note de transparence** : Ce projet est une **simulation de cas d'usage** conçue pour démontrer mes compétences en Data Science, Machine Learning et développement Python. Les données sont synthétiques et les résultats chiffrés sont des estimations basées sur des hypothèses réalistes.
+
 ## Problème client
 
 **Contexte :** Une plateforme e-commerce B2C perdait **18% de ses clients chaque année**, soit environ **€720K de revenus récurrents perdus**. L'équipe marketing dépensait massivement en acquisition sans stratégie de rétention ciblée.
@@ -66,32 +68,16 @@
 
 ---
 
-## 📊 Visualisations & Storytelling
+## Visualisations & Storytelling
 
 Ce projet inclut des **visualisations interactives** qui racontent l'histoire complète :
-
-### Visualisations HTML
 
 - **📊 Dashboard Complet** : Vue d'ensemble de tout le projet
 - **📉 Le Problème** : Analyse du churn initial
 - **🤖 La Solution** : Performance du modèle ML
 - **💰 Impact Business** : Résultats chiffrés
 
-**Voir les visualisations :**
-```bash
-# Ouvrir dans le navigateur
-open visualizations/00_dashboard_complet.html
-```
-
-### Dashboard Streamlit Interactif
-
-Dashboard web interactif pour explorer les données et résultats :
-
-```bash
-streamlit run dashboard/app.py
-```
-
-**Voir le guide complet :** [VISUALIZATIONS_GUIDE.md](VISUALIZATIONS_GUIDE.md)
+Les visualisations sont disponibles dans `docs/visualizations/` et peuvent être consultées via [GitHub Pages](https://mneimy.github.io/churn-prediction/).
 
 ---
 
@@ -160,31 +146,28 @@ features = {
 ✅ **Campagnes rétention** automatisées (3 segments de risque)  
 ✅ **Monitoring** actif (drift détecté et corrigé 2x en 6 mois)
 
-### Feedback client
-
-> *"Le modèle nous a permis d'identifier 180 clients à risque que nous avons réussi à retenir. L'investissement a été rentabilisé en 2 mois."*  
-> — **Directeur Marketing**
-
 ---
 
-## 🚀 Démarrage Rapide
+## Installation & Utilisation
+
+### Prérequis
+
+- Python 3.9+
+- pip
 
 ### Installation
 
 ```bash
-# 1. Cloner le repository
-git clone https://github.com/VOTRE_USERNAME/churn-prediction.git
+# Cloner le repository
+git clone https://github.com/mneimy/churn-prediction.git
 cd churn-prediction
 
-# 2. Créer un environnement virtuel
+# Créer un environnement virtuel
 python3 -m venv venv
 source venv/bin/activate  # Sur Windows: venv\Scripts\activate
 
-# 3. Installer les dépendances
+# Installer les dépendances
 pip install -r requirements.txt
-
-# 4. Configuration (macOS)
-source SETUP_ENV.sh
 ```
 
 ### Utilisation
@@ -203,13 +186,30 @@ python visualizations/create_visualizations.py
 streamlit run dashboard/app.py
 ```
 
-**Voir [QUICKSTART.md](QUICKSTART.md) pour plus de détails.**
+---
+
+## Structure du projet
+
+```
+churn-prediction/
+├── src/                    # Code source principal
+│   ├── data/              # Chargement et validation des données
+│   ├── features/          # Feature engineering
+│   ├── models/            # Entraînement et évaluation
+│   ├── api/               # API FastAPI
+│   └── utils/             # Utilitaires (time split, etc.)
+├── scripts/                # Scripts d'exécution
+├── notebooks/              # Analyses exploratoires
+├── tests/                  # Tests unitaires
+├── docs/                   # Documentation et GitHub Pages
+│   └── visualizations/     # Visualisations interactives
+├── config/                 # Configuration
+└── requirements.txt        # Dépendances Python
+```
 
 ---
 
-## Recommandations concrètes
-
-### Pour répliquer ce projet
+## Recommandations pour répliquer
 
 1. **Data quality first**
    - Auditer la complétude des données transactionnelles (minimum 12 mois)
@@ -231,25 +231,16 @@ streamlit run dashboard/app.py
    - Commencer par un scoring batch quotidien
    - Passer au temps réel une fois la stabilité validée
 
-### Évolutions possibles
-
-- **Modèles multi-classes** : Prédire le type de churn (prix, service, produit)
-- **Recommandation produits** : Intégrer un système de recommandation pour les clients à risque
-- **Optimisation budget** : Allouer automatiquement le budget rétention selon le score
-
 ---
 
-## 📚 Documentation
+## Documentation
 
 - **[README_TECHNICAL.md](README_TECHNICAL.md)** : Documentation technique complète
-- **[QUICKSTART.md](QUICKSTART.md)** : Guide de démarrage rapide
-- **[VISUALIZATIONS_GUIDE.md](VISUALIZATIONS_GUIDE.md)** : Guide des visualisations
-- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** : Guide de dépannage
-- **[PUBLICATION.md](PUBLICATION.md)** : Guide de publication GitHub
+- **Notebooks** : Analyses exploratoires dans `notebooks/`
+- **API** : Documentation auto-générée sur `/docs` (FastAPI)
+- **Visualisations** : Disponibles sur [GitHub Pages](https://mneimy.github.io/churn-prediction/)
 
 ---
 
-**📁 Code source :** [Voir le repository](./)  
-**🔗 Documentation API :** `/docs` (FastAPI auto-generated)  
-**📊 Dashboard :** Streamlit (accès interne)  
-**🌐 GitHub Pages :** [Voir la page web](https://VOTRE_USERNAME.github.io/churn-prediction/)
+**📁 Code source :** [GitHub](https://github.com/mneimy/churn-prediction)  
+**📊 Visualisations :** [GitHub Pages](https://mneimy.github.io/churn-prediction/)
