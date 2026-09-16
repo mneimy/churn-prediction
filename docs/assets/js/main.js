@@ -57,37 +57,6 @@ const metricObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.metric-card').forEach(card => metricObserver.observe(card));
 
-// Apparition progressive des cartes.
-// Le seuil est volontairement bas : une carte plus haute que le viewport
-// (mobile) doit malgré tout devenir visible.
-const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (!entry.isIntersecting) {
-            return;
-        }
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-        fadeObserver.unobserve(entry.target);
-    });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.solution-card, .impact-card, .stat-card, .viz-card').forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    fadeObserver.observe(card);
-});
-
-// Filet de sécurité : si l'IntersectionObserver n'est pas disponible ou si un
-// élément reste masqué, on révèle tout après le chargement complet.
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        document.querySelectorAll('.solution-card, .impact-card, .stat-card, .viz-card')
-            .forEach(card => {
-                if (card.style.opacity === '0') {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }
-            });
-    }, 1500);
-});
+// L'apparition des cartes est desormais entierement geree en CSS
+// (@keyframes card-appear, animation-fill-mode: both) : le contenu reste
+// visible meme si le JavaScript ne s'execute pas ou est interrompu.

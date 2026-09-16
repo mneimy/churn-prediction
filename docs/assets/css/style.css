@@ -199,7 +199,7 @@ body {
 
 .problem-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
 }
@@ -253,7 +253,7 @@ body {
 /* Solution Section */
 .solution-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 2rem;
 }
 
@@ -290,7 +290,7 @@ body {
 
 .impact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
 }
@@ -384,7 +384,7 @@ body {
 
 .stack-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
     gap: 1rem;
 }
 
@@ -404,7 +404,7 @@ body {
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
     gap: 2rem;
 }
 
@@ -445,7 +445,7 @@ body {
 
 .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
 }
@@ -523,7 +523,7 @@ body {
 
 .demo-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
     gap: 2rem;
 }
 
@@ -726,7 +726,7 @@ body {
    =================================================================== */
 .viz-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 1.75rem;
 }
 
@@ -972,4 +972,29 @@ body.viz-page {
 section[id],
 .section[id] {
     scroll-margin-top: 80px;
+}
+
+/* ===================================================================
+   Apparition des cartes : CSS seul.
+   L'etat final est visible meme si l'animation ne se declenche pas,
+   contrairement a une revelation pilotee en JavaScript.
+   =================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+    .solution-card,
+    .impact-card,
+    .stat-card,
+    .viz-card {
+        animation: card-appear 0.6s ease both;
+    }
+}
+
+@keyframes card-appear {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Aucun debordement horizontal, quelle que soit la largeur */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
