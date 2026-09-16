@@ -976,15 +976,16 @@ section[id],
 
 /* ===================================================================
    Apparition des cartes : CSS seul.
-   L'etat final est visible meme si l'animation ne se declenche pas,
-   contrairement a une revelation pilotee en JavaScript.
+   fill-mode 'forwards' (et non 'both') : avant le demarrage, la carte
+   garde son style normal, donc visible. Une animation jamais declenchee
+   ou mise en pause par le navigateur ne peut pas masquer le contenu.
    =================================================================== */
 @media (prefers-reduced-motion: no-preference) {
     .solution-card,
     .impact-card,
     .stat-card,
     .viz-card {
-        animation: card-appear 0.6s ease both;
+        animation: card-appear 0.6s ease forwards;
     }
 }
 
