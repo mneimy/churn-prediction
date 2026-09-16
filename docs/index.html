@@ -4,13 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prédiction de Churn Client | Portfolio Data Science</title>
-    <meta name="description" content="Projet de prédiction de churn client avec Machine Learning. Modèle XGBoost production-ready avec API FastAPI.">
+    <meta name="description" content="Projet de prédiction de churn client avec Machine Learning : pipeline complet XGBoost, API FastAPI et visualisations business interactives.">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <div class="container">
+            <a class="nav-brand" href="#top">
+                <i class="fas fa-chart-line"></i> Prédiction de Churn
+            </a>
+            <ul class="nav-links">
+                <li><a href="#probleme">Problème</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#impact">Impact</a></li>
+                <li><a href="#resultats">Résultats</a></li>
+                <li><a href="#visualisations">Visualisations</a></li>
+                <li><a href="#demo">Démo</a></li>
+                <li><a class="nav-cta" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
-    <section class="hero">
+    <section id="top" class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-title">
@@ -18,23 +36,23 @@
                     Prédiction de Churn Client
                 </h1>
                 <p class="hero-subtitle">
-                    Modèle ML production-ready pour identifier les clients à risque de churn
+                    Identifier les clients sur le point de partir, 30 jours avant leur départ
                 </p>
                 <p class="hero-note" style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
-                    <i class="fas fa-info-circle"></i> Projet de démonstration - Simulation de cas d'usage avec données synthétiques
+                    <i class="fas fa-info-circle"></i> Projet de démonstration — pipeline complet sur données synthétiques
                 </p>
                 <div class="hero-badges">
                     <span class="badge"><i class="fab fa-python"></i> Python 3.9+</span>
                     <span class="badge"><i class="fas fa-robot"></i> XGBoost</span>
                     <span class="badge"><i class="fas fa-rocket"></i> FastAPI</span>
-                    <span class="badge"><i class="fas fa-check-circle"></i> Production-Ready</span>
+                    <span class="badge"><i class="fas fa-chart-pie"></i> 8 visualisations</span>
                 </div>
                 <div class="hero-actions">
-                    <a href="https://github.com/mneimy/churn-prediction" class="btn btn-primary" target="_blank">
-                        <i class="fab fa-github"></i> Voir sur GitHub
+                    <a href="#visualisations" class="btn btn-primary">
+                        <i class="fas fa-chart-bar"></i> Voir les visualisations
                     </a>
-                    <a href="#demo" class="btn btn-secondary">
-                        <i class="fas fa-play"></i> Voir la Démo
+                    <a href="https://github.com/mneimy/churn-prediction" class="btn btn-secondary" target="_blank" rel="noopener">
+                        <i class="fab fa-github"></i> Voir le code
                     </a>
                 </div>
             </div>
@@ -42,10 +60,10 @@
     </section>
 
     <!-- Problem Section -->
-    <section class="section problem-section">
+    <section id="probleme" class="section problem-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-exclamation-triangle"></i> Problème Client</h2>
+                <h2><i class="fas fa-exclamation-triangle"></i> Le problème client</h2>
             </div>
             <div class="problem-content">
                 <div class="problem-stats">
@@ -54,24 +72,26 @@
                         <div class="stat-label">Taux de churn annuel</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">€720K</div>
-                        <div class="stat-label">Revenus perdus/an</div>
+                        <div class="stat-value">720 k€</div>
+                        <div class="stat-label">Revenus perdus / an</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">0 jours</div>
+                        <div class="stat-value">0 jour</div>
                         <div class="stat-label">Détection proactive</div>
                     </div>
                 </div>
                 <div class="problem-text">
                     <p>
-                        Une plateforme e-commerce B2C perdait <strong>18% de ses clients chaque année</strong>, 
-                        soit environ <strong>€720K de revenus récurrents perdus</strong>. L'équipe marketing 
-                        dépensait massivement en acquisition sans stratégie de rétention ciblée.
+                        Une plateforme e-commerce B2C perd <strong>18 % de ses clients chaque année</strong>,
+                        soit environ <strong>720 k€ de revenus récurrents</strong>. L'équipe marketing
+                        dépense massivement en acquisition, sans stratégie de rétention ciblée : le départ
+                        d'un client n'est constaté qu'une fois qu'il est définitif.
                     </p>
                     <p class="question">
                         <i class="fas fa-question-circle"></i>
-                        <strong>Question business :</strong> Comment identifier les clients à risque de churn 
-                        30 jours avant leur départ pour activer des actions de rétention ciblées ?
+                        <strong>Question business :</strong> comment identifier les clients à risque
+                        30 jours avant leur départ, pour déclencher des actions de rétention ciblées
+                        sur ceux qui en valent la peine ?
                     </p>
                 </div>
             </div>
@@ -79,10 +99,10 @@
     </section>
 
     <!-- Solution Section -->
-    <section class="section solution-section">
+    <section id="solution" class="section solution-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-lightbulb"></i> Solution Proposée</h2>
+                <h2><i class="fas fa-lightbulb"></i> La solution proposée</h2>
             </div>
             <div class="solution-grid">
                 <div class="solution-card">
@@ -91,18 +111,18 @@
                     </div>
                     <h3>Modèle ML XGBoost</h3>
                     <p>
-                        Gradient Boosting avec features engineering avancé :
-                        comportementales, transactionnelles, engagement, temporelles
+                        Gradient boosting sur 20 variables construites à partir de l'historique :
+                        comportementales, transactionnelles, engagement et temporelles.
                     </p>
                 </div>
                 <div class="solution-card">
                     <div class="card-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>API REST Temps Réel</h3>
+                    <h3>API REST temps réel</h3>
                     <p>
-                        FastAPI pour scoring en temps réel avec latence &lt;100ms.
-                        Scoring quotidien de tous les clients actifs.
+                        FastAPI pour le scoring à la demande, avec une latence inférieure à 100 ms.
+                        Scoring quotidien de l'ensemble des clients actifs.
                     </p>
                 </div>
                 <div class="solution-card">
@@ -111,8 +131,8 @@
                     </div>
                     <h3>Intégration CRM</h3>
                     <p>
-                        Webhook vers l'outil marketing pour actions automatiques.
-                        Campagnes email personnalisées selon le score de risque.
+                        Webhook vers l'outil marketing pour déclencher les actions automatiquement :
+                        campagnes personnalisées selon le niveau de risque.
                     </p>
                 </div>
             </div>
@@ -120,67 +140,82 @@
     </section>
 
     <!-- Impact Section -->
-    <section class="section impact-section">
+    <section id="impact" class="section impact-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-chart-bar"></i> Impact Business</h2>
+                <h2><i class="fas fa-chart-bar"></i> Scénario d'impact business</h2>
             </div>
             <div class="impact-grid">
                 <div class="impact-card positive">
                     <div class="impact-icon">
                         <i class="fas fa-arrow-down"></i>
                     </div>
-                    <div class="impact-value">-25%</div>
+                    <div class="impact-value">-25 %</div>
                     <div class="impact-label">Taux de churn</div>
-                    <div class="impact-detail">18% → 13.5%</div>
+                    <div class="impact-detail">18 % → 13,5 %</div>
                 </div>
                 <div class="impact-card positive">
                     <div class="impact-icon">
                         <i class="fas fa-euro-sign"></i>
                     </div>
-                    <div class="impact-value">+€180K</div>
-                    <div class="impact-label">Revenus sauvés/an</div>
+                    <div class="impact-value">+180 k€</div>
+                    <div class="impact-label">Revenus préservés / an</div>
                     <div class="impact-detail">180 clients retenus</div>
                 </div>
                 <div class="impact-card positive">
                     <div class="impact-icon">
-                        <i class="fas fa-percentage"></i>
+                        <i class="fas fa-user-check"></i>
                     </div>
-                    <div class="impact-value">87%</div>
-                    <div class="impact-label">F1-score</div>
-                    <div class="impact-detail">Précision du modèle</div>
+                    <div class="impact-value">30 j</div>
+                    <div class="impact-label">Anticipation du départ</div>
+                    <div class="impact-detail">vs. constat a posteriori</div>
                 </div>
                 <div class="impact-card positive">
                     <div class="impact-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <div class="impact-value">3.8x</div>
-                    <div class="impact-label">ROI campagne</div>
-                    <div class="impact-detail">vs. 1.2x avant</div>
+                    <div class="impact-value">6,2x</div>
+                    <div class="impact-label">Retour sur investissement</div>
+                    <div class="impact-detail">sur 12 mois</div>
                 </div>
             </div>
             <div class="roi-box">
-                <h3><i class="fas fa-calculator"></i> Calcul du ROI</h3>
+                <h3><i class="fas fa-calculator"></i> Détail du calcul</h3>
                 <ul>
-                    <li><strong>Clients sauvés :</strong> 4.5% de churn évité × 4000 clients = <strong>180 clients/an</strong></li>
-                    <li><strong>Valeur client moyenne :</strong> €1000/an</li>
-                    <li><strong>Revenus sauvés :</strong> 180 × €1000 = <strong>€180K/an</strong></li>
-                    <li><strong>Coût projet :</strong> €25K</li>
-                    <li><strong>ROI :</strong> <span class="highlight">620% sur 1 an</span></li>
+                    <li><strong>Clients préservés :</strong> 4,5 points de churn évités × 4 000 clients = <strong>180 clients/an</strong></li>
+                    <li><strong>Valeur client moyenne :</strong> 1 000 €/an</li>
+                    <li><strong>Revenus préservés :</strong> 180 × 1 000 € = <strong>180 k€/an</strong></li>
+                    <li><strong>Coût du projet :</strong> 25 k€ (build + run première année)</li>
+                    <li><strong>ROI :</strong> <span class="highlight">620 % sur 12 mois</span></li>
                 </ul>
+            </div>
+            <div class="note-box">
+                <h3><i class="fas fa-flask"></i> Comment lire ces chiffres</h3>
+                <p>
+                    Ce projet est une <strong>démonstration de bout en bout sur données synthétiques</strong> :
+                    il n'y a pas de client réel derrière. Les montants ci-dessus sont un
+                    <strong>scénario chiffré</strong>, construit à partir d'hypothèses explicites
+                    (4 000 clients, 1 000 € de valeur annuelle, 25 % de réduction du churn sur la
+                    population ciblée) — pas des résultats mesurés en production.
+                </p>
+                <p>
+                    Ce qui est en revanche réel et vérifiable dans le dépôt : le pipeline de données,
+                    le feature engineering, l'entraînement du modèle, l'API de scoring, et les
+                    <a href="#resultats">métriques de performance mesurées</a> ci-dessous.
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Technical Section -->
-    <section class="section technical-section">
+    <section id="technique" class="section technical-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-code"></i> Approche Technique</h2>
+                <h2><i class="fas fa-code"></i> L'approche technique</h2>
             </div>
             <div class="technical-content">
                 <div class="tech-stack">
-                    <h3>Stack Technique</h3>
+                    <h3>Stack technique</h3>
                     <div class="stack-grid">
                         <div class="stack-item">
                             <i class="fab fa-python"></i>
@@ -204,38 +239,38 @@
                         </div>
                         <div class="stack-item">
                             <i class="fas fa-chart-line"></i>
-                            <span>MLflow</span>
+                            <span>Plotly</span>
                         </div>
                     </div>
                 </div>
                 <div class="features-list">
-                    <h3>Features Engineering</h3>
+                    <h3>Feature engineering</h3>
                     <div class="features-grid">
                         <div class="feature-category">
                             <h4><i class="fas fa-user"></i> Comportementales</h4>
                             <ul>
-                                <li>Fréquence d'achat (30j, 90j)</li>
-                                <li>Délai depuis dernier achat</li>
+                                <li>Fréquence d'achat (30 j, 90 j)</li>
+                                <li>Délai depuis le dernier achat</li>
                                 <li>Panier moyen</li>
-                                <li>Diversité catégories</li>
+                                <li>Diversité des catégories</li>
                             </ul>
                         </div>
                         <div class="feature-category">
                             <h4><i class="fas fa-shopping-cart"></i> Transactionnelles</h4>
                             <ul>
                                 <li>Nombre total de commandes</li>
-                                <li>Revenus totaux</li>
+                                <li>Revenus cumulés</li>
                                 <li>Valeur moyenne par commande</li>
-                                <li>Taux de remboursement</li>
+                                <li>Valeur de la commande maximale</li>
                             </ul>
                         </div>
                         <div class="feature-category">
                             <h4><i class="fas fa-envelope"></i> Engagement</h4>
                             <ul>
                                 <li>Taux d'ouverture email</li>
-                                <li>Visites site web</li>
+                                <li>Visites du site web</li>
                                 <li>Taux d'abandon panier</li>
-                                <li>Temps sur site</li>
+                                <li>Saisonnalité de la commande</li>
                             </ul>
                         </div>
                     </div>
@@ -245,52 +280,56 @@
     </section>
 
     <!-- Results Section -->
-    <section class="section results-section">
+    <section id="resultats" class="section results-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-trophy"></i> Résultats</h2>
+                <h2><i class="fas fa-trophy"></i> Performance mesurée du modèle</h2>
             </div>
             <div class="results-content">
                 <div class="metrics-grid">
                     <div class="metric-card">
                         <div class="metric-label">F1-Score</div>
-                        <div class="metric-value">0.87</div>
+                        <div class="metric-value">0.60</div>
                         <div class="metric-bar">
-                            <div class="metric-fill" style="width: 87%"></div>
+                            <div class="metric-fill" style="width: 60%"></div>
                         </div>
                     </div>
                     <div class="metric-card">
                         <div class="metric-label">Precision</div>
-                        <div class="metric-value">0.82</div>
+                        <div class="metric-value">0.66</div>
                         <div class="metric-bar">
-                            <div class="metric-fill" style="width: 82%"></div>
+                            <div class="metric-fill" style="width: 66%"></div>
                         </div>
                     </div>
                     <div class="metric-card">
                         <div class="metric-label">Recall</div>
-                        <div class="metric-value">0.91</div>
+                        <div class="metric-value">0.55</div>
                         <div class="metric-bar">
-                            <div class="metric-fill" style="width: 91%"></div>
+                            <div class="metric-fill" style="width: 55%"></div>
                         </div>
                     </div>
                     <div class="metric-card">
                         <div class="metric-label">AUC-ROC</div>
-                        <div class="metric-value">0.89</div>
+                        <div class="metric-value">0.68</div>
                         <div class="metric-bar">
-                            <div class="metric-fill" style="width: 89%"></div>
+                            <div class="metric-fill" style="width: 68%"></div>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial">
-                    <div class="testimonial-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "Le modèle nous a permis d'identifier 180 clients à risque que nous avons réussi à retenir. 
-                        L'investissement a été rentabilisé en 2 mois."
+                <div class="note-box">
+                    <h3><i class="fas fa-microscope"></i> Lecture des résultats</h3>
+                    <p>
+                        Ces valeurs sont celles réellement produites par le pipeline sur le jeu de test,
+                        et consultables dans <code>reports/training_metrics.json</code> du dépôt.
+                        Avec une précision de 0,66, deux clients sur trois ciblés par une campagne
+                        sont effectivement à risque — suffisant pour rentabiliser une action de
+                        rétention à faible coût unitaire.
                     </p>
-                    <p class="testimonial-author">
-                        — Directeur Marketing, E-commerce
+                    <p>
+                        <strong>Limite assumée :</strong> l'écart entre le score d'entraînement (F1 0,99)
+                        et le score de test (F1 0,60) traduit un sur-apprentissage. Les chantiers
+                        identifiés pour la suite sont la régularisation du modèle, une validation
+                        croisée temporelle, et une revue de la définition de la cible de churn.
                     </p>
                 </div>
             </div>
@@ -301,52 +340,108 @@
     <section id="visualisations" class="section solution-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-chart-bar"></i> Visualisations & Storytelling</h2>
+                <h2><i class="fas fa-chart-bar"></i> Visualisations &amp; storytelling</h2>
+                <p style="color: var(--text-light); max-width: 720px; margin: 0.75rem auto 0;">
+                    Huit pages interactives qui déroulent le projet, du constat business
+                    jusqu'à la lecture technique. Chaque page se lit seule et renvoie vers la suivante.
+                </p>
             </div>
-            <div class="solution-grid">
-                <div class="solution-card">
-                    <div class="card-icon">
-                        <i class="fas fa-exclamation-circle"></i>
-                    </div>
-                    <h3>Le Problème</h3>
+            <div class="viz-grid">
+                <div class="viz-card">
+                    <div class="card-icon"><i class="fas fa-exclamation-circle"></i></div>
+                    <span class="viz-tag business">1 · Business</span>
+                    <h3>Le problème</h3>
                     <p>
-                        Montre comment l’inactivité fait exploser le churn et où se situent
-                        les segments à risque. Permet d’identifier un seuil d’alerte opérationnel.
+                        Comment l'inactivité fait grimper le churn et où se situent les segments
+                        à risque. Permet de fixer un seuil d'alerte opérationnel.
                     </p>
-                    <a class="btn btn-secondary" href="visualizations/01_probleme_churn.html">Voir la visualisation</a>
+                    <a class="btn btn-primary" href="visualizations/01_probleme_churn.html">
+                        <i class="fas fa-chart-area"></i> Ouvrir
+                    </a>
                 </div>
-                <div class="solution-card">
-                    <div class="card-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>La Solution ML</h3>
+                <div class="viz-card">
+                    <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <span class="viz-tag business">2 · Business</span>
+                    <h3>Insight : délai d'achat</h3>
                     <p>
-                        Détaille les métriques de performance et les variables réellement
-                        prédictives pour expliquer le churn aux équipes business.
+                        Le délai depuis la dernière commande est le signal d'alerte le plus fort.
+                        Au-delà de 60 jours, le risque de départ change de nature.
                     </p>
-                    <a class="btn btn-secondary" href="visualizations/02_solution_ml.html">Voir la visualisation</a>
+                    <a class="btn btn-primary" href="visualizations/insight_days_since_last_order.html">
+                        <i class="fas fa-chart-area"></i> Ouvrir
+                    </a>
                 </div>
-                <div class="solution-card">
-                    <div class="card-icon">
-                        <i class="fas fa-euro-sign"></i>
-                    </div>
-                    <h3>Impact Business</h3>
+                <div class="viz-card">
+                    <div class="card-icon"><i class="fas fa-repeat"></i></div>
+                    <span class="viz-tag business">3 · Business</span>
+                    <h3>Insight : fréquence d'achat</h3>
                     <p>
-                        Quantifie la baisse du churn, les revenus sauvés et le ROI des
+                        La régularité des commandes distingue les clients installés des clients
+                        fragiles, indépendamment du montant dépensé.
+                    </p>
+                    <a class="btn btn-primary" href="visualizations/insight_purchase_frequency.html">
+                        <i class="fas fa-chart-area"></i> Ouvrir
+                    </a>
+                </div>
+                <div class="viz-card">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <span class="viz-tag business">4 · Business</span>
+                    <h3>Segmentation RFM</h3>
+                    <p>
+                        Où concentrer l'effort de rétention : champions, clients fidèles,
+                        clients à risque et clients perdus, avec leur poids réel.
+                    </p>
+                    <a class="btn btn-primary" href="visualizations/segmentation_rfm.html">
+                        <i class="fas fa-chart-area"></i> Ouvrir
+                    </a>
+                </div>
+                <div class="viz-card">
+                    <div class="card-icon"><i class="fas fa-brain"></i></div>
+                    <span class="viz-tag tech">5 · Technique</span>
+                    <h3>La solution ML</h3>
+                    <p>
+                        Les métriques de performance et les variables réellement prédictives,
+                        expliquées pour une audience business.
+                    </p>
+                    <a class="btn btn-primary" href="visualizations/02_solution_ml.html">
+                        <i class="fas fa-chart-area"></i> Ouvrir
+                    </a>
+                </div>
+                <div class="viz-card">
+                    <div class="card-icon"><i class="fas fa-sliders"></i></div>
+                    <span class="viz-tag tech">6 · Technique</span>
+                    <h3>Features importantes</h3>
+                    <p>
+                        Ce que le modèle regarde vraiment pour décider, et ce qu'il faut donc
+                        suivre dans un tableau de bord opérationnel.
+                    </p>
+                    <a class="btn btn-primary" href="visualizations/feature_importance.html">
+                        <i class="fas fa-chart-area"></i> Ouvrir
+                    </a>
+                </div>
+                <div class="viz-card">
+                    <div class="card-icon"><i class="fas fa-euro-sign"></i></div>
+                    <span class="viz-tag business">7 · Business</span>
+                    <h3>Impact business</h3>
+                    <p>
+                        Le scénario chiffré : baisse du churn, revenus préservés et ROI des
                         campagnes de rétention déclenchées par le modèle.
                     </p>
-                    <a class="btn btn-secondary" href="visualizations/03_impact_business.html">Voir la visualisation</a>
+                    <a class="btn btn-primary" href="visualizations/03_impact_business.html">
+                        <i class="fas fa-chart-area"></i> Ouvrir
+                    </a>
                 </div>
-                <div class="solution-card">
-                    <div class="card-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <h3>Dashboard Complet</h3>
+                <div class="viz-card">
+                    <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                    <span class="viz-tag">8 · Synthèse</span>
+                    <h3>Dashboard complet</h3>
                     <p>
-                        Une vue d’ensemble du projet : churn, performance, segments et
-                        impact financier, pour une lecture rapide en entretien.
+                        La vue d'ensemble en une page : churn, performance, segments et impact
+                        financier. Le support idéal pour une présentation rapide.
                     </p>
-                    <a class="btn btn-secondary" href="visualizations/00_dashboard_complet.html">Voir le dashboard</a>
+                    <a class="btn btn-primary" href="visualizations/00_dashboard_complet.html">
+                        <i class="fas fa-table-columns"></i> Ouvrir le dashboard
+                    </a>
                 </div>
             </div>
         </div>
@@ -356,7 +451,7 @@
     <section id="demo" class="section demo-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-play-circle"></i> Démonstration</h2>
+                <h2><i class="fas fa-play-circle"></i> La démonstration</h2>
             </div>
             <div class="demo-content">
                 <div class="demo-card">
@@ -380,17 +475,17 @@ curl -X POST "http://localhost:8000/predict" \
                     </div>
                 </div>
                 <div class="demo-steps">
-                    <h3><i class="fas fa-list-ol"></i> Installation Rapide</h3>
+                    <h3><i class="fas fa-list-ol"></i> Installation rapide</h3>
                     <ol>
-                        <li>Cloner le repository</li>
+                        <li>Cloner le dépôt</li>
                         <li>Créer un environnement virtuel</li>
                         <li>Installer les dépendances</li>
                         <li>Entraîner le modèle</li>
                         <li>Lancer l'API</li>
                     </ol>
-                    <a href="https://github.com/mneimy/churn-prediction/blob/main/README.md" 
-                       class="btn btn-primary" target="_blank">
-                        <i class="fas fa-book"></i> Documentation
+                    <a href="https://github.com/mneimy/churn-prediction/blob/main/README.md"
+                       class="btn btn-primary" target="_blank" rel="noopener">
+                        <i class="fas fa-book"></i> Lire la documentation
                     </a>
                 </div>
             </div>
@@ -398,19 +493,19 @@ curl -X POST "http://localhost:8000/predict" \
     </section>
 
     <!-- CTA Section -->
-    <section class="section cta-section">
+    <section id="contact" class="section cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2>Prêt à démarrer ?</h2>
-                <p>Explorez le code, testez le modèle, ou contactez-moi pour une collaboration</p>
+                <h2>Un enjeu de rétention chez vous ?</h2>
+                <p>Explorez le code, testez le modèle, ou parlons de votre cas d'usage.</p>
                 <div class="cta-buttons">
-                    <a href="https://github.com/mneimy/churn-prediction" 
-                       class="btn btn-primary" target="_blank">
-                        <i class="fab fa-github"></i> Voir le Code
+                    <a href="https://github.com/mneimy/churn-prediction"
+                       class="btn btn-primary" target="_blank" rel="noopener">
+                        <i class="fab fa-github"></i> Voir le code
                     </a>
-                    <a href="https://github.com/mneimy" 
-                       class="btn btn-secondary" target="_blank">
-                        <i class="fas fa-envelope"></i> Me Contacter
+                    <a href="https://linkedin.com/in/mneimy"
+                       class="btn btn-secondary" target="_blank" rel="noopener">
+                        <i class="fab fa-linkedin"></i> Me contacter
                     </a>
                 </div>
             </div>
@@ -420,12 +515,12 @@ curl -X POST "http://localhost:8000/predict" \
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Portfolio Data Science. Tous droits réservés.</p>
+            <p>&copy; 2026 MN Conseil — Portfolio Data Science.</p>
             <div class="footer-links">
-                <a href="https://github.com/mneimy" target="_blank">
+                <a href="https://github.com/mneimy" target="_blank" rel="noopener" aria-label="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="https://linkedin.com/in/mneimy" target="_blank">
+                <a href="https://linkedin.com/in/mneimy" target="_blank" rel="noopener" aria-label="LinkedIn">
                     <i class="fab fa-linkedin"></i>
                 </a>
             </div>

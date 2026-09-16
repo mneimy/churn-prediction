@@ -43,3 +43,6 @@ reports/*.html
 # Jupyter
 .ipynb_checkpoints
 *.ipynb
+
+# Config locale de prévisualisation (Claude Code)
+.claude/

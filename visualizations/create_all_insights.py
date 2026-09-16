@@ -19,6 +19,9 @@ warnings.filterwarnings('ignore')
 
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(Path(__file__).parent))
+
+from story_template import write_story_page, normalize_recency  # noqa: E402
 
 DATA_DIR = project_root / "data"
 VIZ_DIR = project_root / "docs" / "visualizations"
@@ -27,63 +30,12 @@ REPORTS_DIR = project_root / "reports"
 VIZ_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def write_story_page(title, subtitle, paragraphs, fig, output_path):
-    """Crée une page HTML avec explications et graphique Plotly."""
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig_html = fig.to_html(full_html=False, include_plotlyjs="cdn")
-    paragraphs_html = "\n".join([f"<p>{p}</p>" for p in paragraphs])
-
-    html = f"""<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} | Insights Churn</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        body {{ background: #f8fafc; }}
-        .viz-wrapper {{ max-width: 1100px; margin: 40px auto; padding: 0 20px; }}
-        .viz-header {{ margin-bottom: 16px; }}
-        .viz-subtitle {{ color: #4b5563; margin-top: 8px; }}
-        .viz-text {{ background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }}
-        .viz-text p {{ margin: 0 0 12px 0; line-height: 1.6; }}
-        .viz-chart {{ margin-top: 20px; background: #ffffff; border-radius: 12px; padding: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }}
-        .viz-actions {{ margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }}
-        .viz-link {{ display: inline-block; padding: 10px 14px; border-radius: 8px; background: #111827; color: #ffffff; text-decoration: none; }}
-        .viz-link.secondary {{ background: #e5e7eb; color: #111827; }}
-    </style>
-</head>
-<body>
-    <div class="viz-wrapper">
-        <div class="viz-header">
-            <a class="viz-link secondary" href="../index.html">← Retour à la page projet</a>
-            <h1>{title}</h1>
-            <p class="viz-subtitle">{subtitle}</p>
-        </div>
-        <div class="viz-text">
-            {paragraphs_html}
-        </div>
-        <div class="viz-chart">
-            {fig_html}
-        </div>
-        <div class="viz-actions">
-            <a class="viz-link" href="../index.html#demo">Voir la démo complète</a>
-            <a class="viz-link secondary" href="../index.html#impact">Retour à l'impact</a>
-        </div>
-    </div>
-    <script src="../assets/js/main.js"></script>
-</body>
-</html>"""
-
-    output_path.write_text(html, encoding="utf-8")
-    print(f"✅ {output_path.name}")
-
-
 def load_data():
     """Charge les données."""
     print("📊 Chargement des données...")
     df_raw = pd.read_csv(DATA_DIR / "raw" / "customers.csv", parse_dates=['order_date'])
-    df_features = pd.read_csv(DATA_DIR / "processed" / "features.csv")
+    df_features = pd.read_csv(DATA_DIR / "processed" / "features.csv", parse_dates=['last_order_date'])
+    df_features = normalize_recency(df_features)
     
     if 'last_order_date' in df_features.columns:
         df_features['last_order_date'] = pd.to_datetime(df_features['last_order_date'])
@@ -106,7 +58,7 @@ def create_insight_days_since_last_order(df_features):
     # Créer des bins
     df_features['days_bin'] = pd.cut(
         df_features['days_since_last_order'],
-        bins=[0, 30, 60, 90, 180, float('inf')],
+        bins=[-1, 30, 60, 90, 180, float('inf')],
         labels=['<30j', '30-60j', '60-90j', '90-180j', '>180j']
     )
     

@@ -3,41 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insight : Fréquence d’achat | Prédiction de Churn</title>
+    <title>Insight : Fréquence d'achat | Prediction de Churn</title>
+    <meta name="description" content="Plus la fréquence est élevée, plus le churn diminue">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        body { background: #f8fafc; }
-        .viz-wrapper { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-        .viz-header { margin-bottom: 16px; }
-        .viz-subtitle { color: #4b5563; margin-top: 8px; }
-        .viz-text { background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .viz-text p { margin: 0 0 12px 0; line-height: 1.6; }
-        .viz-chart { margin-top: 20px; background: #ffffff; border-radius: 12px; padding: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .viz-actions { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
-        .viz-link { display: inline-block; padding: 10px 14px; border-radius: 8px; background: #111827; color: #ffffff; text-decoration: none; }
-        .viz-link.secondary { background: #e5e7eb; color: #111827; }
-        iframe { width: 100%; height: 820px; border: 0; }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <div class="viz-wrapper">
-        <div class="viz-header">
-            <a class="viz-link secondary" href="../index.html">← Retour à la page projet</a>
-            <h1>Insight : Fréquence d’achat</h1>
+<body class="viz-page">
+    <nav class="viz-topbar">
+        <div class="container">
+            <p class="viz-breadcrumb">
+                <a href="../index.html">Prediction de Churn</a>
+                &rsaquo; <a href="../index.html#visualisations">Visualisations</a>
+                &rsaquo; Insight : Fréquence d'achat
+            </p>
+            <a class="btn btn-secondary" href="../index.html#visualisations">
+                <i class="fas fa-arrow-left"></i> Retour au projet
+            </a>
+        </div>
+    </nav>
+
+    <main class="viz-wrapper">
+        <header class="viz-header">
+            <h1>Insight : Fréquence d'achat</h1>
             <p class="viz-subtitle">Plus la fréquence est élevée, plus le churn diminue</p>
-        </div>
-        <div class="viz-text">
-            <p>Les clients avec peu d’achats sur 30 jours ont un churn beaucoup plus élevé.</p>
-            <p>Les segments à faible fréquence génèrent aussi moins de revenus moyens.</p>
-            <p>Action recommandée : stimuler la fréquence des segments 0–1 et 2–3 achats.</p>
-        </div>
-        <div class="viz-chart">
-            <iframe src="raw/insight_purchase_frequency.html" title="Insight fréquence d’achat"></iframe>
-        </div>
-        <div class="viz-actions">
-            <a class="viz-link" href="../index.html#demo">Voir la démo complète</a>
-            <a class="viz-link secondary" href="../index.html#impact">Retour à l’impact</a>
-        </div>
-    </div>
+        </header>
+
+        <section class="viz-text">
+            <p>Le taux de churn chute nettement quand la fréquence d’achat augmente, ce qui valide l’importance de l’engagement régulier.</p>
+            <p>Les segments à faible fréquence présentent un churn élevé et une valeur client plus faible, ce qui oriente la priorisation des actions.</p>
+            <p>Action recommandée : stimuler la fréquence avec des offres ciblées sur les segments 0-1 et 2-3 achats.</p>
+        </section>
+
+        <section class="viz-chart">
+            <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="23217125-cc76-40d0-84c3-c321c4930d2d" class="plotly-graph-div" style="height:500px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("23217125-cc76-40d0-84c3-c321c4930d2d")) {                    Plotly.newPlot(                        "23217125-cc76-40d0-84c3-c321c4930d2d",                        [{"marker":{"color":"#ef4444"},"text":["87.2%","66.4%","46.0%","27.8%","17.1%"],"textposition":"auto","x":["0-1","2-3","4-5","6-10","\u003e10"],"y":{"dtype":"f8","bdata":"oBgyvsDOVUDHcRzHcZxQQKWNd1Sz\u002fkZAS7euXh7GO0CBERiBERgxQA=="},"type":"bar","xaxis":"x","yaxis":"y"},{"marker":{"color":"#10b981"},"text":["\u20ac260","\u20ac423","\u20ac680","\u20ac956","\u20ac1,230"],"textposition":"auto","x":["0-1","2-3","4-5","6-10","\u003e10"],"y":{"dtype":"f8","bdata":"s4Ys1hQ7cECwQAigoXR6QEB+kMUEPYVARpmngtTfjUAyVHaYujmTQA=="},"type":"bar","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,0.45],"title":{"text":"Fr\u00e9quence (30j)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Taux de churn (%)"}},"xaxis2":{"anchor":"y2","domain":[0.55,1.0],"title":{"text":"Fr\u00e9quence (30j)"}},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"title":{"text":"Revenus moyens (\u20ac)"}},"annotations":[{"font":{"size":16},"showarrow":false,"text":"Taux de churn par fr\u00e9quence","x":0.225,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":16},"showarrow":false,"text":"Revenus moyens par fr\u00e9quence","x":0.775,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"title":{"text":"\ud83d\udcca Insight : Fr\u00e9quence d'achat inversement corr\u00e9l\u00e9e au churn"},"height":500,"showlegend":false},                        {"responsive": true}                    )                };            </script>        </div>
+        </section>
+
+        <nav class="viz-actions">
+            <a class="btn btn-secondary" href="insight_days_since_last_order.html"><i class="fas fa-arrow-left"></i> Insight : delai d'achat</a>
+            <span class="spacer"></span>
+            <a class="btn btn-primary" href="segmentation_rfm.html">Segmentation RFM <i class="fas fa-arrow-right"></i></a>
+        </nav>
+    </main>
 </body>
 </html>
