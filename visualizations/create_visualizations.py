@@ -23,7 +23,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from story_template import write_story_page, normalize_recency  # noqa: E402
+from story_template import write_story_page, latest_snapshot  # noqa: E402
 
 # Chemins
 DATA_DIR = project_root / "data"
@@ -40,7 +40,7 @@ def load_data():
     
     df_raw = pd.read_csv(DATA_DIR / "raw" / "customers.csv", parse_dates=['order_date'])
     df_features = pd.read_csv(DATA_DIR / "processed" / "features.csv", parse_dates=['last_order_date'])
-    df_features = normalize_recency(df_features)
+    df_features = latest_snapshot(df_features)
     
     # Charger les métriques
     metrics_path = REPORTS_DIR / "training_metrics.json"
@@ -191,7 +191,7 @@ def create_solution_visualization(df_features, metrics):
     # Calculer les corrélations réelles
     feature_cols = [col for col in df_features.columns 
                    if col not in ['customer_id', 'first_order_date', 'last_order_date', 'churn', 
-                                 'days_bin', 'freq_bin', 'R_score', 'F_score', 'M_score', 
+                                 'snapshot_date', 'days_bin', 'freq_bin', 'R_score', 'F_score', 'M_score', 
                                  'RFM_segment', 'segment_name']]
     
     correlations = df_features[feature_cols + ['churn']].corr()['churn'].abs().sort_values(ascending=False)

@@ -32,6 +32,10 @@ black>=24.8.0
 flake8>=7.1.0
 mypy>=1.11.0
 
+# Orchestration : voir requirements-airflow.txt (environnement SEPARE).
+# Airflow epingle des dizaines de dependances transitives et forcerait des
+# versions anciennes de pandas et scikit-learn dans cet environnement.
+
 # Utilities
 tqdm>=4.66.1
 joblib>=1.4.0

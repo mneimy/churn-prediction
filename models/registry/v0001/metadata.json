@@ -1,7 +1,7 @@
 {
   "version": "v0001",
   "created_at": "2026-09-30T03:17:16.673762",
-  "stage": "production",
+  "stage": "staging",
   "metrics": {
     "train_f1": 0.5543,
     "train_precision": 0.7594,
@@ -107,8 +107,8 @@
   "training_data_hash": "381f499f6cc51a0f831e660ddb06caa90a2db95e2be4647c75f766fbc8d04381",
   "training_rows": 22739,
   "reference_date": "2025-12-01",
-  "notes": "promotion: aucun modèle en production",
-  "promoted_at": "2026-09-30T03:17:16.676093",
+  "notes": "",
+  "promoted_at": null,
   "promoted_from": null,
   "lineage": {
     "source_donnees": "data/raw/customers.csv",

@@ -46,3 +46,39 @@ reports/*.html
 
 # Config locale de prévisualisation (Claude Code)
 .claude/
+
+# Environnements virtuels
+.venv/
+.venv-airflow/
+
+# Airflow : base de métadonnées locale et artefacts d'exécution
+airflow/airflow.db
+airflow/airflow.cfg
+airflow/logs/
+airflow/simple_auth_manager_passwords.json.generated
+airflow/*.pid
+
+# Étages intermédiaires du pipeline (régénérables)
+data/staging/
+
+# Secrets
+.env
+
+# --- Rapports -------------------------------------------------------------
+# Les sorties de scoring contiennent une ligne par client : ce sont des
+# donnees personnelles dans un contexte reel, elles ne sont jamais versionnees
+# (couvert par *.csv ci-dessus, explicite ici pour que la regle soit lisible).
+reports/scoring/
+
+# Rapports de surveillance horodates : un par execution, regenerables.
+reports/monitoring/monitoring_*.json
+reports/monitoring/calibration.csv
+
+# En revanche, la documentation du modele DOIT etre dans le depot : le README
+# et la page portfolio renvoient a ces fichiers comme source verifiable des
+# chiffres annonces. Un chiffre non verifiable ne vaut rien.
+!reports/training_metrics.json
+!reports/feature_importance.json
+!reports/split_summary.json
+!reports/feature_pipeline_report.json
+!reports/monitoring/latest.json

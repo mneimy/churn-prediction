@@ -134,17 +134,47 @@ features = {
 
 ### Performance du modèle
 
-- **F1-score** : 0.87
-- **Precision** : 0.82 (sur les clients prédits à risque)
-- **Recall** : 0.91 (détection de 91% des churners réels)
-- **AUC-ROC** : 0.89
+Mesurée sur les photographies de novembre et décembre 2025, jamais vues à
+l'entraînement. Valeurs produites par le pipeline, dans
+[`reports/training_metrics.json`](reports/training_metrics.json).
 
-### Impact opérationnel
+| Métrique | Test | Lecture |
+|----------|-----:|---------|
+| F1-score | 0,527 | au seuil de décision 0,60 |
+| Précision | 0,681 | pour un taux de churn de base de 0,526 |
+| Rappel | 0,430 | |
+| AUC-ROC | 0,663 | signal réel mais modeste |
+| Brier | 0,230 | calibration perfectible |
+| **Écart train / test** | **0,027** | le modèle généralise |
 
-✅ **Déploiement réussi** en production (uptime 99.5%)  
-✅ **Intégration CRM** opérationnelle (webhook temps réel)  
-✅ **Campagnes rétention** automatisées (3 segments de risque)  
-✅ **Monitoring** actif (drift détecté et corrigé 2x en 6 mois)
+**Ce qui compte pour le métier — le lift.** Une équipe marketing ne contacte
+pas toute la base, elle contacte un budget :
+
+| Ciblage | Précision | Lift |
+|---------|----------:|-----:|
+| Taux de base | 52,6 % | ×1,00 |
+| **Top 10 %** | **73,8 %** | **×1,40** |
+| Top 20 % | 71,5 % | ×1,36 |
+| Top 30 % | 68,8 % | ×1,31 |
+
+Détail et limites : [fiche de modèle](docs/compliance/model-card.md).
+
+### État réel du projet
+
+Il s'agit d'une **démonstration de bout en bout sur données synthétiques**.
+Aucun déploiement en production, aucun client réel.
+
+Ce qui est implémenté et vérifiable en exécutant le dépôt :
+
+- pipeline de données orchestré par Airflow (3 DAGs, exécutés et validés) ;
+- couche de conformité RGPD appliquée **en amont** du feature engineering ;
+- registre de modèles avec versionnage, promotion conditionnelle et retour arrière ;
+- surveillance de dérive et déclencheur de réentraînement hiérarchisé ;
+- 73 tests automatisés, dont un test de non-régression sur la fuite temporelle.
+
+Ce qui manque pour une mise en production : chiffrement au repos, coffre-fort
+de secrets, contrôle d'accès, procédure de violation de données. Ces points
+sont listés dans [securite-anssi.md](docs/compliance/securite-anssi.md).
 
 ---
 
@@ -192,19 +222,26 @@ streamlit run dashboard/app.py
 
 ```
 churn-prediction/
-├── src/                    # Code source principal
-│   ├── data/              # Chargement et validation des données
-│   ├── features/          # Feature engineering
-│   ├── models/            # Entraînement et évaluation
-│   ├── api/               # API FastAPI
-│   └── utils/             # Utilitaires (time split, etc.)
-├── scripts/                # Scripts d'exécution
-├── notebooks/              # Analyses exploratoires
-├── tests/                  # Tests unitaires
-├── docs/                   # Documentation et GitHub Pages
-│   └── visualizations/     # Visualisations interactives
-├── config/                 # Configuration
-└── requirements.txt        # Dépendances Python
+├── src/
+│   ├── compliance/         # RGPD : consentement, minimisation, rétention, journal
+│   ├── pipelines/          # Ingestion, contrats, photographies, entraînement, scoring
+│   ├── monitoring/         # Dérive, performance, déclencheurs de réentraînement
+│   ├── registry/           # Registre de modèles : version, promotion, rollback
+│   ├── features/           # Feature engineering (fenêtre d'observation fermée)
+│   ├── models/             # Entraîneur historique
+│   ├── api/                # API FastAPI
+│   └── utils/              # Découpage temporel, fuseaux horaires
+├── airflow/dags/           # 3 DAGs : features, entraînement, surveillance
+├── scripts/                # bootstrap_consent, run_training, run_monitoring
+├── tests/                  # 73 tests (conformité + MLOps)
+├── docs/
+│   ├── ARCHITECTURE_MLOPS.md
+│   ├── compliance/         # Registre, AIPD, consentement, ANSSI, fiche de modèle
+│   └── visualizations/     # Pages GitHub Pages
+├── models/registry/        # Versions de modèles + index
+├── config/
+├── requirements.txt        # Socle ML
+└── requirements-airflow.txt # Orchestration (environnement séparé)
 ```
 
 ---
@@ -235,7 +272,14 @@ churn-prediction/
 
 ## Documentation
 
+- **[ARCHITECTURE_MLOPS.md](docs/ARCHITECTURE_MLOPS.md)** : chaîne de production, choix de conception et défauts corrigés
+- **[Fiche de modèle](docs/compliance/model-card.md)** : usage prévu, performances, limites
+- **[Registre des traitements](docs/compliance/registre-traitements.md)** : finalités, bases légales, droits (art. 30)
+- **[Screening AIPD](docs/compliance/aipd-screening.md)** : analyse d'impact préalable (art. 35)
+- **[Politique de consentement](docs/compliance/politique-consentement.md)** : opt-in, opposition, retrait
+- **[Mesures de sécurité](docs/compliance/securite-anssi.md)** : art. 32 RGPD et hygiène ANSSI
 - **[README_TECHNICAL.md](README_TECHNICAL.md)** : Documentation technique complète
+- **[ARTICLE_TECHNIQUE.md](docs/ARTICLE_TECHNIQUE.md)** : Article détaillé sur le processus de développement, les choix techniques et les défis rencontrés
 - **Notebooks** : Analyses exploratoires dans `notebooks/`
 - **API** : Documentation auto-générée sur `/docs` (FastAPI)
 - **Visualisations** : Disponibles sur [GitHub Pages](https://mneimy.github.io/churn-prediction/)

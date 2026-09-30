@@ -1,0 +1,248 @@
+{
+  "etapes": {
+    "ingestion": {
+      "source": "data/raw/customers.csv",
+      "transactions": 48691,
+      "clients": 5000
+    },
+    "validation_entree": {
+      "dataset": "transactions_brutes",
+      "controle_le": "2026-09-30T03:17:12.733990",
+      "attentes_totales": 7,
+      "attentes_respectees": 7,
+      "echecs_bloquants": 0,
+      "echecs_avertissement": 0,
+      "statut": "PASS",
+      "details": [
+        {
+          "attente": "colonnes_requises",
+          "description": "Les colonnes ['customer_id', 'order_date', 'order_value', 'product_category'] sont présentes.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "table_non_vide",
+          "description": "Au moins une transaction est présente.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "identifiant_toujours_renseigne",
+          "description": "Aucun identifiant client manquant.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "dates_parsables",
+          "description": "Toutes les dates de commande sont interprétables.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "montants_positifs",
+          "description": "Aucun montant de commande négatif.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "pas_de_commande_dans_le_futur",
+          "description": "Aucune commande postérieure à aujourd'hui.",
+          "bloquante": false,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "doublons_limites",
+          "description": "Moins de 1 % de lignes strictement dupliquées.",
+          "bloquante": false,
+          "respectee": true,
+          "erreur": null
+        }
+      ]
+    },
+    "conservation": {
+      "dataset": "transactions",
+      "date_reference": "2026-01-14T02:24:40.280288",
+      "duree_conservation_jours": 1095,
+      "date_limite": "2023-01-15T02:24:40.280288",
+      "lignes_avant": 48691,
+      "lignes_apres": 48691,
+      "lignes_purgees": 0
+    },
+    "base_legale": {
+      "purpose": "churn_scoring",
+      "legal_basis": "interet_legitime",
+      "as_of": "2026-01-14T02:24:40.280288",
+      "customers_before": 5000,
+      "customers_after": 4886,
+      "customers_excluded": 114,
+      "exclusion_rate": 0.0228
+    },
+    "minimisation": {
+      "identifiants_directs_supprimes": [],
+      "champs_interdits_detectes": [],
+      "pseudonymisation_appliquee": false,
+      "lignes": 47495
+    },
+    "features": {
+      "detail_photographies": [
+        {
+          "photographie": "2025-05-01",
+          "population": 4547,
+          "taux_churn": 0.5342
+        },
+        {
+          "photographie": "2025-06-01",
+          "population": 4540,
+          "taux_churn": 0.5401
+        },
+        {
+          "photographie": "2025-07-01",
+          "population": 4542,
+          "taux_churn": 0.5328
+        },
+        {
+          "photographie": "2025-08-01",
+          "population": 4554,
+          "taux_churn": 0.5413
+        },
+        {
+          "photographie": "2025-09-01",
+          "population": 4556,
+          "taux_churn": 0.5439
+        },
+        {
+          "photographie": "2025-10-01",
+          "population": 4558,
+          "taux_churn": 0.5333
+        },
+        {
+          "photographie": "2025-11-01",
+          "population": 4560,
+          "taux_churn": 0.5397
+        },
+        {
+          "photographie": "2025-12-01",
+          "population": 4553,
+          "taux_churn": 0.5124
+        }
+      ],
+      "photographies": 8,
+      "lignes": 36410,
+      "clients_distincts": 4867,
+      "colonnes": 22,
+      "taux_churn": 0.5347,
+      "stabilite_churn": {
+        "min": 0.5124,
+        "max": 0.5439
+      },
+      "parametres": {
+        "fenetre_churn_jours": 30,
+        "fenetre_activite_jours": 180,
+        "historique_minimal_jours": 180,
+        "frequence": "MS"
+      }
+    },
+    "validation_sortie": {
+      "dataset": "features_clients",
+      "controle_le": "2026-09-30T03:17:16.272424",
+      "attentes_totales": 12,
+      "attentes_respectees": 12,
+      "echecs_bloquants": 0,
+      "echecs_avertissement": 0,
+      "statut": "PASS",
+      "details": [
+        {
+          "attente": "table_non_vide",
+          "description": "Au moins un client dans la table de features.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "cle_unique",
+          "description": "Chaque couple (client, photographie) apparaît une seule fois — un client revient légitimement à chaque date de photographie.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "photographies_multiples",
+          "description": "Au moins trois photographies, sans quoi le découpage train/validation/test par date est impossible.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "taux_churn_stable_entre_photographies",
+          "description": "Le taux de churn ne varie pas de plus de 25 points entre photographies — un écart plus grand signale que la cible dépend de la date de coupure plutôt que du comportement client.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "target_presente",
+          "description": "La colonne cible 'churn' est présente.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "target_binaire",
+          "description": "La cible ne prend que les valeurs 0 et 1.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "deux_classes_presentes",
+          "description": "Les deux classes sont représentées.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "anciennete_jamais_negative",
+          "description": "Aucune ancienneté négative — une valeur négative signale une fuite temporelle (commande postérieure à la date de référence utilisée comme feature).",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "anciennete_premiere_commande_coherente",
+          "description": "La première commande est toujours antérieure ou égale à la dernière.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "revenus_positifs",
+          "description": "Aucun revenu cumulé négatif.",
+          "bloquante": true,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "desequilibre_raisonnable",
+          "description": "Le taux de churn reste dans une plage exploitable.",
+          "bloquante": false,
+          "respectee": true,
+          "erreur": null
+        },
+        {
+          "attente": "valeurs_manquantes_limitees",
+          "description": "Aucune colonne avec plus de 50 % de valeurs manquantes.",
+          "bloquante": false,
+          "respectee": true,
+          "erreur": null
+        }
+      ]
+    }
+  },
+  "sortie": "data/processed/features.csv"
+}

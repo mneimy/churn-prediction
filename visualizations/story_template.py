@@ -35,24 +35,28 @@ def _neighbours(filename):
     return previous, following
 
 
-def normalize_recency(df_features, column="days_since_last_order"):
+def latest_snapshot(df_features, snapshot_column="snapshot_date"):
     """
-    Recalcule le delai depuis la derniere commande a partir de la date de
-    reference du jeu de donnees.
+    Ne conserve que la photographie la plus récente : une ligne par client.
 
-    Le jeu de donnees livre contient des valeurs negatives (la date de
-    reference utilisee au feature engineering est anterieure aux dernieres
-    commandes), ce qui vidait les graphiques par tranche de recence.
-    On recalcule donc la recence par rapport a la derniere commande observee.
+    Le pipeline produit désormais un jeu multi-photographies (36 410 lignes
+    pour 4 867 clients). Ces graphiques racontent l'état du portefeuille à un
+    instant donné, pas son évolution : les empiler mélangerait un même client
+    à huit dates différentes et fausserait toutes les distributions.
+
+    Remplace l'ancien `normalize_recency`, qui corrigeait la recence négative
+    du jeu d'origine. Cette correction est maintenant faite en amont, dans le
+    feature engineering ; la réappliquer ici écraserait une recence correcte
+    et propre à chaque photographie par une valeur globale.
     """
-    if "last_order_date" not in df_features.columns:
+    if snapshot_column not in df_features.columns:
         return df_features
 
     df = df_features.copy()
-    last_order = pd.to_datetime(df["last_order_date"])
-    reference_date = last_order.max()
-    df[column] = (reference_date - last_order).dt.days.clip(lower=0)
-    return df
+    df[snapshot_column] = pd.to_datetime(df[snapshot_column])
+    latest = df[snapshot_column].max()
+    subset = df[df[snapshot_column] == latest].drop(columns=[snapshot_column])
+    return subset.reset_index(drop=True)
 
 
 def write_story_page(title, subtitle, paragraphs, fig, output_path, badge=None):

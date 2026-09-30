@@ -1,0 +1,44 @@
+{
+  "methode": "découpage par date de photographie (aucun client à cheval)",
+  "train": {
+    "photographies": [
+      "2025-05-01",
+      "2025-06-01",
+      "2025-07-01",
+      "2025-08-01",
+      "2025-09-01"
+    ],
+    "lignes": 22739,
+    "taux_churn": 0.5385
+  },
+  "validation": {
+    "photographies": [
+      "2025-10-01"
+    ],
+    "lignes": 4558,
+    "taux_churn": 0.5333
+  },
+  "test": {
+    "photographies": [
+      "2025-11-01",
+      "2025-12-01"
+    ],
+    "lignes": 9113,
+    "taux_churn": 0.5261
+  },
+  "seuil_decision": {
+    "methode": "valeur nette maximale sous contrainte de capacité",
+    "economie": {
+      "cout_contact": 2.0,
+      "cout_incitation": 25.0,
+      "valeur_client": 1000.0,
+      "taux_marge": 0.25,
+      "taux_reussite_retention": 0.3
+    },
+    "taux_contact_maximal": 0.35,
+    "seuil": 0.6,
+    "taux_contact_retenu": 0.3499,
+    "precision_validation": 0.6809,
+    "valeur_nette_validation": 38385.0
+  }
+}

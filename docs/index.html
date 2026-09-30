@@ -45,7 +45,8 @@
                     <span class="badge"><i class="fab fa-python"></i> Python 3.9+</span>
                     <span class="badge"><i class="fas fa-robot"></i> XGBoost</span>
                     <span class="badge"><i class="fas fa-rocket"></i> FastAPI</span>
-                    <span class="badge"><i class="fas fa-chart-pie"></i> 8 visualisations</span>
+                    <span class="badge"><i class="fas fa-diagram-project"></i> Airflow</span>
+                    <span class="badge"><i class="fas fa-shield-halved"></i> RGPD / CNIL</span>
                 </div>
                 <div class="hero-actions">
                     <a href="#visualisations" class="btn btn-primary">
@@ -288,48 +289,67 @@
             <div class="results-content">
                 <div class="metrics-grid">
                     <div class="metric-card">
-                        <div class="metric-label">F1-Score</div>
-                        <div class="metric-value">0.60</div>
+                        <div class="metric-label">Lift — top 10 % ciblé</div>
+                        <div class="metric-value">×1,40</div>
                         <div class="metric-bar">
-                            <div class="metric-fill" style="width: 60%"></div>
+                            <div class="metric-fill" style="width: 70%"></div>
                         </div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Precision</div>
+                        <div class="metric-label">Précision du ciblage</div>
+                        <div class="metric-value">0.68</div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 68%"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">AUC-ROC</div>
                         <div class="metric-value">0.66</div>
                         <div class="metric-bar">
                             <div class="metric-fill" style="width: 66%"></div>
                         </div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Recall</div>
-                        <div class="metric-value">0.55</div>
+                        <div class="metric-label">Écart train / test</div>
+                        <div class="metric-value">0.03</div>
                         <div class="metric-bar">
-                            <div class="metric-fill" style="width: 55%"></div>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">AUC-ROC</div>
-                        <div class="metric-value">0.68</div>
-                        <div class="metric-bar">
-                            <div class="metric-fill" style="width: 68%"></div>
+                            <div class="metric-fill" style="width: 8%"></div>
                         </div>
                     </div>
                 </div>
                 <div class="note-box">
                     <h3><i class="fas fa-microscope"></i> Lecture des résultats</h3>
                     <p>
-                        Ces valeurs sont celles réellement produites par le pipeline sur le jeu de test,
-                        et consultables dans <code>reports/training_metrics.json</code> du dépôt.
-                        Avec une précision de 0,66, deux clients sur trois ciblés par une campagne
-                        sont effectivement à risque — suffisant pour rentabiliser une action de
-                        rétention à faible coût unitaire.
+                        Le chiffre qui compte pour une équipe marketing n'est pas le F1
+                        mais le <strong>lift</strong> : en ciblant les 10 % de clients
+                        les mieux classés, on trouve <strong>73,8 % de vrais partants</strong>
+                        contre 52,6 % au hasard — soit <strong>1,40 fois mieux</strong>.
+                        Sur les 20 % supérieurs, le lift reste de ×1,36.
+                        Ces valeurs sont produites par le pipeline et consultables dans
+                        <code>reports/training_metrics.json</code>.
                     </p>
                     <p>
-                        <strong>Limite assumée :</strong> l'écart entre le score d'entraînement (F1 0,99)
-                        et le score de test (F1 0,60) traduit un sur-apprentissage. Les chantiers
-                        identifiés pour la suite sont la régularisation du modèle, une validation
-                        croisée temporelle, et une revue de la définition de la cible de churn.
+                        <strong>Validation temporelle stricte :</strong> le modèle est
+                        entraîné sur les photographies de mai à septembre, validé sur
+                        octobre, et testé sur novembre-décembre — des mois qu'il n'a
+                        jamais vus. L'écart entre performance d'entraînement et de test
+                        est de <strong>0,027</strong>, ce qui indique que le modèle
+                        généralise au lieu de mémoriser.
+                    </p>
+                    <p>
+                        <strong>Ce qui a été corrigé :</strong> la version précédente
+                        souffrait d'une fuite temporelle — les agrégats de features
+                        incluaient les commandes postérieures à la date de référence,
+                        c'est-à-dire la réponse elle-même. L'écart train/test atteignait
+                        0,395. Le détail de la correction figure dans la
+                        <a href="https://github.com/mneimy/churn-prediction/blob/main/docs/ARCHITECTURE_MLOPS.md" target="_blank" rel="noopener">documentation d'architecture</a>.
+                    </p>
+                    <p>
+                        <strong>Limite assumée :</strong> l'AUC de 0,66 traduit un signal
+                        réel mais modeste, sur des données synthétiques dont la structure
+                        est plus simple que la réalité. Les chantiers identifiés sont
+                        listés dans la
+                        <a href="https://github.com/mneimy/churn-prediction/blob/main/docs/compliance/model-card.md" target="_blank" rel="noopener">fiche de modèle</a>.
                     </p>
                 </div>
             </div>
