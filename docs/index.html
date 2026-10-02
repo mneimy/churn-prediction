@@ -4,13 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prédiction de Churn Client | Portfolio Data Science</title>
-    <meta name="description" content="Projet de prédiction de churn client avec Machine Learning. Modèle XGBoost production-ready avec API FastAPI.">
+    <meta name="description" content="Projet de prédiction de churn client avec Machine Learning : pipeline complet XGBoost, API FastAPI et visualisations business interactives.">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <div class="container">
+            <a class="nav-brand" href="#top">
+                <i class="fas fa-chart-line"></i> Prédiction de Churn
+            </a>
+            <ul class="nav-links">
+                <li><a href="#probleme">Problème</a></li>
+                <li><a href="#visualisations">Visualisations</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#impact">Impact</a></li>
+                <li><a href="#resultats">Résultats</a></li>
+                <li><a href="#corrections">Corrections</a></li>
+                <li><a href="#industrialisation">Industrialisation</a></li>
+                <li><a href="#conformite">Conformité</a></li>
+                <li><a href="#demo">Démo</a></li>
+                <li><a class="nav-cta" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
-    <section class="hero">
+    <section id="top" class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-title">
@@ -18,23 +39,24 @@
                     Prédiction de Churn Client
                 </h1>
                 <p class="hero-subtitle">
-                    Modèle ML production-ready pour identifier les clients à risque de churn
+                    Identifier les clients sur le point de partir, 30 jours avant leur départ
                 </p>
                 <p class="hero-note" style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
-                    <i class="fas fa-info-circle"></i> Projet de démonstration - Simulation de cas d'usage avec données synthétiques
+                    <i class="fas fa-info-circle"></i> Projet de démonstration — pipeline complet sur données synthétiques
                 </p>
                 <div class="hero-badges">
-                    <span class="badge"><i class="fab fa-python"></i> Python 3.9+</span>
+                    <span class="badge"><i class="fab fa-python"></i> Python 3.12</span>
                     <span class="badge"><i class="fas fa-robot"></i> XGBoost</span>
                     <span class="badge"><i class="fas fa-rocket"></i> FastAPI</span>
-                    <span class="badge"><i class="fas fa-check-circle"></i> Production-Ready</span>
+                    <span class="badge"><i class="fas fa-diagram-project"></i> Airflow</span>
+                    <span class="badge"><i class="fas fa-shield-halved"></i> RGPD / CNIL</span>
                 </div>
                 <div class="hero-actions">
-                    <a href="https://github.com/mneimy/churn-prediction" class="btn btn-primary" target="_blank">
-                        <i class="fab fa-github"></i> Voir sur GitHub
+                    <a href="#visualisations" class="btn btn-primary">
+                        <i class="fas fa-chart-bar"></i> Voir les visualisations
                     </a>
-                    <a href="#demo" class="btn btn-secondary">
-                        <i class="fas fa-play"></i> Voir la Démo
+                    <a href="https://github.com/mneimy/churn-prediction" class="btn btn-secondary" target="_blank" rel="noopener">
+                        <i class="fab fa-github"></i> Voir le code
                     </a>
                 </div>
             </div>
@@ -42,10 +64,10 @@
     </section>
 
     <!-- Problem Section -->
-    <section class="section problem-section">
+    <section id="probleme" class="section problem-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-exclamation-triangle"></i> Problème Client</h2>
+                <h2><i class="fas fa-exclamation-triangle"></i> Le problème client</h2>
             </div>
             <div class="problem-content">
                 <div class="problem-stats">
@@ -54,243 +76,26 @@
                         <div class="stat-label">Taux de churn annuel</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">€720K</div>
-                        <div class="stat-label">Revenus perdus/an</div>
+                        <div class="stat-value">720 k€</div>
+                        <div class="stat-label">Revenus perdus / an</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">0 jours</div>
+                        <div class="stat-value">0 jour</div>
                         <div class="stat-label">Détection proactive</div>
                     </div>
                 </div>
                 <div class="problem-text">
                     <p>
-                        Une plateforme e-commerce B2C perdait <strong>18% de ses clients chaque année</strong>, 
-                        soit environ <strong>€720K de revenus récurrents perdus</strong>. L'équipe marketing 
-                        dépensait massivement en acquisition sans stratégie de rétention ciblée.
+                        Une plateforme e-commerce B2C perd <strong>18 % de ses clients chaque année</strong>,
+                        soit environ <strong>720 k€ de revenus récurrents</strong>. L'équipe marketing
+                        dépense massivement en acquisition, sans stratégie de rétention ciblée : le départ
+                        d'un client n'est constaté qu'une fois qu'il est définitif.
                     </p>
                     <p class="question">
                         <i class="fas fa-question-circle"></i>
-                        <strong>Question business :</strong> Comment identifier les clients à risque de churn 
-                        30 jours avant leur départ pour activer des actions de rétention ciblées ?
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Solution Section -->
-    <section class="section solution-section">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-lightbulb"></i> Solution Proposée</h2>
-            </div>
-            <div class="solution-grid">
-                <div class="solution-card">
-                    <div class="card-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Modèle ML XGBoost</h3>
-                    <p>
-                        Gradient Boosting avec features engineering avancé :
-                        comportementales, transactionnelles, engagement, temporelles
-                    </p>
-                </div>
-                <div class="solution-card">
-                    <div class="card-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>API REST Temps Réel</h3>
-                    <p>
-                        FastAPI pour scoring en temps réel avec latence &lt;100ms.
-                        Scoring quotidien de tous les clients actifs.
-                    </p>
-                </div>
-                <div class="solution-card">
-                    <div class="card-icon">
-                        <i class="fas fa-link"></i>
-                    </div>
-                    <h3>Intégration CRM</h3>
-                    <p>
-                        Webhook vers l'outil marketing pour actions automatiques.
-                        Campagnes email personnalisées selon le score de risque.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Impact Section -->
-    <section class="section impact-section">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-chart-bar"></i> Impact Business</h2>
-            </div>
-            <div class="impact-grid">
-                <div class="impact-card positive">
-                    <div class="impact-icon">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
-                    <div class="impact-value">-25%</div>
-                    <div class="impact-label">Taux de churn</div>
-                    <div class="impact-detail">18% → 13.5%</div>
-                </div>
-                <div class="impact-card positive">
-                    <div class="impact-icon">
-                        <i class="fas fa-euro-sign"></i>
-                    </div>
-                    <div class="impact-value">+€180K</div>
-                    <div class="impact-label">Revenus sauvés/an</div>
-                    <div class="impact-detail">180 clients retenus</div>
-                </div>
-                <div class="impact-card positive">
-                    <div class="impact-icon">
-                        <i class="fas fa-percentage"></i>
-                    </div>
-                    <div class="impact-value">87%</div>
-                    <div class="impact-label">F1-score</div>
-                    <div class="impact-detail">Précision du modèle</div>
-                </div>
-                <div class="impact-card positive">
-                    <div class="impact-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="impact-value">3.8x</div>
-                    <div class="impact-label">ROI campagne</div>
-                    <div class="impact-detail">vs. 1.2x avant</div>
-                </div>
-            </div>
-            <div class="roi-box">
-                <h3><i class="fas fa-calculator"></i> Calcul du ROI</h3>
-                <ul>
-                    <li><strong>Clients sauvés :</strong> 4.5% de churn évité × 4000 clients = <strong>180 clients/an</strong></li>
-                    <li><strong>Valeur client moyenne :</strong> €1000/an</li>
-                    <li><strong>Revenus sauvés :</strong> 180 × €1000 = <strong>€180K/an</strong></li>
-                    <li><strong>Coût projet :</strong> €25K</li>
-                    <li><strong>ROI :</strong> <span class="highlight">620% sur 1 an</span></li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technical Section -->
-    <section class="section technical-section">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-code"></i> Approche Technique</h2>
-            </div>
-            <div class="technical-content">
-                <div class="tech-stack">
-                    <h3>Stack Technique</h3>
-                    <div class="stack-grid">
-                        <div class="stack-item">
-                            <i class="fab fa-python"></i>
-                            <span>Python 3.9+</span>
-                        </div>
-                        <div class="stack-item">
-                            <i class="fas fa-robot"></i>
-                            <span>XGBoost</span>
-                        </div>
-                        <div class="stack-item">
-                            <i class="fas fa-rocket"></i>
-                            <span>FastAPI</span>
-                        </div>
-                        <div class="stack-item">
-                            <i class="fas fa-database"></i>
-                            <span>PostgreSQL</span>
-                        </div>
-                        <div class="stack-item">
-                            <i class="fas fa-server"></i>
-                            <span>Docker</span>
-                        </div>
-                        <div class="stack-item">
-                            <i class="fas fa-chart-line"></i>
-                            <span>MLflow</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="features-list">
-                    <h3>Features Engineering</h3>
-                    <div class="features-grid">
-                        <div class="feature-category">
-                            <h4><i class="fas fa-user"></i> Comportementales</h4>
-                            <ul>
-                                <li>Fréquence d'achat (30j, 90j)</li>
-                                <li>Délai depuis dernier achat</li>
-                                <li>Panier moyen</li>
-                                <li>Diversité catégories</li>
-                            </ul>
-                        </div>
-                        <div class="feature-category">
-                            <h4><i class="fas fa-shopping-cart"></i> Transactionnelles</h4>
-                            <ul>
-                                <li>Nombre total de commandes</li>
-                                <li>Revenus totaux</li>
-                                <li>Valeur moyenne par commande</li>
-                                <li>Taux de remboursement</li>
-                            </ul>
-                        </div>
-                        <div class="feature-category">
-                            <h4><i class="fas fa-envelope"></i> Engagement</h4>
-                            <ul>
-                                <li>Taux d'ouverture email</li>
-                                <li>Visites site web</li>
-                                <li>Taux d'abandon panier</li>
-                                <li>Temps sur site</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Results Section -->
-    <section class="section results-section">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-trophy"></i> Résultats</h2>
-            </div>
-            <div class="results-content">
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">F1-Score</div>
-                        <div class="metric-value">0.87</div>
-                        <div class="metric-bar">
-                            <div class="metric-fill" style="width: 87%"></div>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Precision</div>
-                        <div class="metric-value">0.82</div>
-                        <div class="metric-bar">
-                            <div class="metric-fill" style="width: 82%"></div>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Recall</div>
-                        <div class="metric-value">0.91</div>
-                        <div class="metric-bar">
-                            <div class="metric-fill" style="width: 91%"></div>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">AUC-ROC</div>
-                        <div class="metric-value">0.89</div>
-                        <div class="metric-bar">
-                            <div class="metric-fill" style="width: 89%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "Le modèle nous a permis d'identifier 180 clients à risque que nous avons réussi à retenir. 
-                        L'investissement a été rentabilisé en 2 mois."
-                    </p>
-                    <p class="testimonial-author">
-                        — Directeur Marketing, E-commerce
+                        <strong>Question business :</strong> comment identifier les clients à risque
+                        30 jours avant leur départ, pour déclencher des actions de rétention ciblées
+                        sur ceux qui en valent la peine ?
                     </p>
                 </div>
             </div>
@@ -301,53 +106,727 @@
     <section id="visualisations" class="section solution-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-chart-bar"></i> Visualisations & Storytelling</h2>
+                <h2><i class="fas fa-chart-bar"></i> Visualisations &amp; storytelling</h2>
+                <p style="color: var(--text-light); max-width: 720px; margin: 0.75rem auto 0;">
+                    Huit pages interactives qui déroulent le projet, du constat business
+                    jusqu'à la lecture technique. Chaque page se lit seule et renvoie vers la suivante.
+                </p>
+            </div>
+            <div class="viz-grid">
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-exclamation-circle"></i></div>
+                    <span class="viz-tag business">1 · Business</span>
+                    <h3>Le problème</h3>
+                    <p>
+                        Comment l'inactivité fait grimper le churn, et où fixer le seuil d'alerte.
+                    </p>
+                    <a class="viz-open" href="visualizations/01_probleme_churn.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <span class="viz-tag business">2 · Business</span>
+                    <h3>Insight : délai d'achat</h3>
+                    <p>
+                        Le signal le plus fort : au-delà de 60 jours, le risque change de nature.
+                    </p>
+                    <a class="viz-open" href="visualizations/insight_days_since_last_order.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-repeat"></i></div>
+                    <span class="viz-tag business">3 · Business</span>
+                    <h3>Insight : fréquence d'achat</h3>
+                    <p>
+                        La régularité distingue les clients installés des clients fragiles.
+                    </p>
+                    <a class="viz-open" href="visualizations/insight_purchase_frequency.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <span class="viz-tag business">4 · Business</span>
+                    <h3>Segmentation RFM</h3>
+                    <p>
+                        Où concentrer l'effort : champions, fidèles, à risque, perdus.
+                    </p>
+                    <a class="viz-open" href="visualizations/segmentation_rfm.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-brain"></i></div>
+                    <span class="viz-tag tech">5 · Technique</span>
+                    <h3>La solution ML</h3>
+                    <p>
+                        Performances et variables réellement prédictives, en langage business.
+                    </p>
+                    <a class="viz-open" href="visualizations/02_solution_ml.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-sliders"></i></div>
+                    <span class="viz-tag tech">6 · Technique</span>
+                    <h3>Features importantes</h3>
+                    <p>
+                        Ce que le modèle regarde pour décider, donc ce qu'il faut suivre.
+                    </p>
+                    <a class="viz-open" href="visualizations/feature_importance.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-euro-sign"></i></div>
+                    <span class="viz-tag business">7 · Business</span>
+                    <h3>Impact business</h3>
+                    <p>
+                        Le scénario chiffré : churn évité, revenus préservés, ROI de campagne.
+                    </p>
+                    <a class="viz-open" href="visualizations/03_impact_business.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                    <span class="viz-tag">8 · Synthèse</span>
+                    <h3>Dashboard complet</h3>
+                    <p>
+                        Tout en une page : churn, performance, segments, impact financier.
+                    </p>
+                    <a class="viz-open" href="visualizations/00_dashboard_complet.html">
+                        Ouvrir le dashboard <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="section solution-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-lightbulb"></i> La solution proposée</h2>
             </div>
             <div class="solution-grid">
                 <div class="solution-card">
                     <div class="card-icon">
-                        <i class="fas fa-exclamation-circle"></i>
-                    </div>
-                    <h3>Le Problème</h3>
-                    <p>
-                        Montre comment l’inactivité fait exploser le churn et où se situent
-                        les segments à risque. Permet d’identifier un seuil d’alerte opérationnel.
-                    </p>
-                    <a class="btn btn-secondary" href="visualizations/01_probleme_churn.html">Voir la visualisation</a>
-                </div>
-                <div class="solution-card">
-                    <div class="card-icon">
                         <i class="fas fa-brain"></i>
                     </div>
-                    <h3>La Solution ML</h3>
+                    <h3>Modèle ML XGBoost</h3>
                     <p>
-                        Détaille les métriques de performance et les variables réellement
-                        prédictives pour expliquer le churn aux équipes business.
+                        Gradient boosting sur 20 variables construites à partir de l'historique :
+                        comportementales, transactionnelles, engagement et temporelles.
                     </p>
-                    <a class="btn btn-secondary" href="visualizations/02_solution_ml.html">Voir la visualisation</a>
                 </div>
                 <div class="solution-card">
                     <div class="card-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>API REST temps réel</h3>
+                    <p>
+                        FastAPI pour le scoring à la demande, avec une latence inférieure à 100 ms.
+                        Scoring quotidien de l'ensemble des clients actifs.
+                    </p>
+                </div>
+                <div class="solution-card">
+                    <div class="card-icon">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3>Intégration CRM</h3>
+                    <p>
+                        Webhook vers l'outil marketing pour déclencher les actions automatiquement :
+                        campagnes personnalisées selon le niveau de risque.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="section impact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-bar"></i> Scénario d'impact business</h2>
+            </div>
+            <div class="impact-grid">
+                <div class="impact-card positive">
+                    <div class="impact-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="impact-value">-25 %</div>
+                    <div class="impact-label">Taux de churn</div>
+                    <div class="impact-detail">18 % → 13,5 %</div>
+                </div>
+                <div class="impact-card positive">
+                    <div class="impact-icon">
                         <i class="fas fa-euro-sign"></i>
                     </div>
-                    <h3>Impact Business</h3>
+                    <div class="impact-value">+180 k€</div>
+                    <div class="impact-label">Revenus préservés / an</div>
+                    <div class="impact-detail">180 clients retenus</div>
+                </div>
+                <div class="impact-card positive">
+                    <div class="impact-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="impact-value">30 j</div>
+                    <div class="impact-label">Anticipation du départ</div>
+                    <div class="impact-detail">vs. constat a posteriori</div>
+                </div>
+                <div class="impact-card positive">
+                    <div class="impact-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="impact-value">6,2x</div>
+                    <div class="impact-label">Retour sur investissement</div>
+                    <div class="impact-detail">sur 12 mois</div>
+                </div>
+            </div>
+            <details class="note-box roi-box">
+                <summary><i class="fas fa-calculator"></i> Détail du calcul</summary>
+                <div class="note-body">
+                <ul>
+                    <li><strong>Clients préservés :</strong> 4,5 points de churn évités × 4 000 clients = <strong>180 clients/an</strong></li>
+                    <li><strong>Valeur client moyenne :</strong> 1 000 €/an</li>
+                    <li><strong>Revenus préservés :</strong> 180 × 1 000 € = <strong>180 k€/an</strong></li>
+                    <li><strong>Coût du projet :</strong> 25 k€ (build + run première année)</li>
+                    <li><strong>ROI :</strong> <span class="highlight">620 % sur 12 mois</span></li>
+                </ul>
+                </div>
+            </details>
+            <div class="note-box">
+                <h3><i class="fas fa-flask"></i> Comment lire ces chiffres</h3>
+                <p>
+                    Ce projet est une <strong>démonstration de bout en bout sur données synthétiques</strong> :
+                    il n'y a pas de client réel derrière. Les montants ci-dessus sont un
+                    <strong>scénario chiffré</strong>, construit à partir d'hypothèses explicites
+                    (4 000 clients, 1 000 € de valeur annuelle, 25 % de réduction du churn sur la
+                    population ciblée) — pas des résultats mesurés en production.
+                </p>
+                <p>
+                    Ce qui est en revanche réel et vérifiable dans le dépôt : le pipeline de données,
+                    le feature engineering, l'entraînement du modèle, l'API de scoring, et les
+                    <a href="#resultats">métriques de performance mesurées</a> ci-dessous.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Section -->
+    <section id="technique" class="section technical-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-code"></i> L'approche technique</h2>
+            </div>
+            <div class="technical-content">
+                <div class="tech-stack">
+                    <h3>Stack technique</h3>
+                    <div class="stack-grid">
+                        <div class="stack-item">
+                            <i class="fab fa-python"></i>
+                            <span>Python 3.12</span>
+                        </div>
+                        <div class="stack-item">
+                            <i class="fas fa-robot"></i>
+                            <span>XGBoost</span>
+                        </div>
+                        <div class="stack-item">
+                            <i class="fas fa-rocket"></i>
+                            <span>FastAPI</span>
+                        </div>
+                        <div class="stack-item">
+                            <i class="fas fa-diagram-project"></i>
+                            <span>Airflow 3.3</span>
+                        </div>
+                        <div class="stack-item">
+                            <i class="fas fa-vial-circle-check"></i>
+                            <span>pytest — 85 tests</span>
+                        </div>
+                        <div class="stack-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Plotly</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="features-list">
+                    <h3>Feature engineering</h3>
+                    <div class="features-grid">
+                        <div class="feature-category">
+                            <h4><i class="fas fa-user"></i> Comportementales</h4>
+                            <ul>
+                                <li>Fréquence d'achat (30 j, 90 j)</li>
+                                <li>Délai depuis le dernier achat</li>
+                                <li>Panier moyen</li>
+                                <li>Diversité des catégories</li>
+                            </ul>
+                        </div>
+                        <div class="feature-category">
+                            <h4><i class="fas fa-shopping-cart"></i> Transactionnelles</h4>
+                            <ul>
+                                <li>Nombre total de commandes</li>
+                                <li>Revenus cumulés</li>
+                                <li>Valeur moyenne par commande</li>
+                                <li>Valeur de la commande maximale</li>
+                            </ul>
+                        </div>
+                        <div class="feature-category">
+                            <h4><i class="fas fa-envelope"></i> Engagement</h4>
+                            <ul>
+                                <li>Taux d'ouverture email</li>
+                                <li>Visites du site web</li>
+                                <li>Taux d'abandon panier</li>
+                                <li>Saisonnalité de la commande</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="resultats" class="section results-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-trophy"></i> Performance mesurée du modèle</h2>
+            </div>
+            <div class="results-content">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Lift — top 10 % ciblé</div>
+                        <div class="metric-value">×1,40</div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Précision du ciblage</div>
+                        <div class="metric-value">0.68</div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 68%"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">AUC-ROC</div>
+                        <div class="metric-value">0.66</div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 66%"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Écart train / test</div>
+                        <div class="metric-value">0.03</div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: 8%"></div>
+                        </div>
+                    </div>
+                </div>
+                <details class="note-box" open>
+                    <summary><i class="fas fa-microscope"></i> Lecture des résultats</summary>
+                    <div class="note-body">
                     <p>
-                        Quantifie la baisse du churn, les revenus sauvés et le ROI des
-                        campagnes de rétention déclenchées par le modèle.
+                        Le chiffre qui compte pour une équipe marketing n'est pas le F1
+                        mais le <strong>lift</strong> : elle ne contacte jamais toute la
+                        base, elle contacte un budget.
                     </p>
-                    <a class="btn btn-secondary" href="visualizations/03_impact_business.html">Voir la visualisation</a>
+                    </div>
+                </details>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <caption>
+                            Mesuré sur les photographies de novembre et décembre 2025,
+                            jamais vues à l'entraînement. Source :
+                            <code>reports/training_metrics.json</code>, versionné dans le dépôt.
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Ciblage</th>
+                                <th scope="col">Précision</th>
+                                <th scope="col">Lift</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="baseline">
+                                <th scope="row">Taux de base (hasard)</th>
+                                <td>52,6 %</td>
+                                <td>×1,00</td>
+                            </tr>
+                            <tr class="highlight">
+                                <th scope="row">Top 10 % du classement</th>
+                                <td>73,8 %</td>
+                                <td>×1,40</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Top 20 %</th>
+                                <td>71,5 %</td>
+                                <td>×1,36</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Top 30 %</th>
+                                <td>68,8 %</td>
+                                <td>×1,31</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="note-box">
+                    <p>
+                        <strong>Validation temporelle stricte :</strong> le modèle est
+                        entraîné sur les photographies de mai à septembre, validé sur
+                        octobre, et testé sur novembre-décembre — des mois qu'il n'a
+                        jamais vus. L'écart entre performance d'entraînement et de test
+                        est de <strong>0,027</strong>, ce qui indique que le modèle
+                        généralise au lieu de mémoriser.
+                    </p>
+                    <p>
+                        <strong>Ce qui a été corrigé :</strong> la version précédente
+                        souffrait d'une fuite temporelle — les agrégats de features
+                        incluaient les commandes postérieures à la date de référence,
+                        c'est-à-dire la réponse elle-même. L'écart train/test atteignait
+                        0,395. Le détail de la correction figure dans la
+                        <a href="https://github.com/mneimy/churn-prediction/blob/main/docs/ARCHITECTURE_MLOPS.md" target="_blank" rel="noopener">documentation d'architecture</a>.
+                    </p>
+                    <p>
+                        <strong>Limite assumée :</strong> l'AUC de 0,66 traduit un signal
+                        réel mais modeste, sur des données synthétiques dont la structure
+                        est plus simple que la réalité. Les chantiers identifiés sont
+                        listés dans la
+                        <a href="https://github.com/mneimy/churn-prediction/blob/main/docs/compliance/model-card.md" target="_blank" rel="noopener">fiche de modèle</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Corrections Section -->
+    <section id="corrections" class="section problem-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-bug-slash"></i> Ce qui a été corrigé</h2>
+                <p style="color: var(--text-light); max-width: 760px; margin: 0.75rem auto 0;">
+                    La première version du modèle n'était pas perfectible, elle était
+                    fausse. Trois défauts de conception rendaient ses résultats sans
+                    valeur. Chaque correction est couverte par un test de non-régression.
+                </p>
+            </div>
+
+            <div class="fix-list">
+                <article class="fix-card resolved">
+                    <h3><span class="fix-index">01</span> Fuite temporelle systématique</h3>
+                    <p>
+                        Aucune fenêtre d'agrégation n'avait de borne supérieure :
+                        <code>df[df["order_date"] &gt;= window_30d]</code> remontait
+                        jusqu'à la fin du jeu de données. Toutes les variables voyaient
+                        les commandes postérieures à la date de référence, c'est-à-dire
+                        <strong>la réponse elle-même</strong>.
+                    </p>
+                    <p>
+                        Symptôme observable : une ancienneté négative pour 91 % des
+                        clients — précisément ceux qui n'allaient pas partir.
+                    </p>
+                    <div class="delta">
+                        <div class="delta-item">
+                            <span class="delta-label">Écart train / test</span>
+                            <span class="delta-value before">0,395</span>
+                        </div>
+                        <span class="delta-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <div class="delta-item">
+                            <span class="delta-label">Après correction</span>
+                            <span class="delta-value after">0,027</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="fix-card resolved">
+                    <h3><span class="fix-index">02</span> Découpage temporel impossible par construction</h3>
+                    <p>
+                        Avec une seule date de référence, tous les clients partagent la
+                        même coupure : découper « dans le temps » revenait à découper sur
+                        <code>last_order_date</code>, qui détermine mécaniquement la cible.
+                        Le modèle n'apprenait pas le churn, il apprenait de quel côté de
+                        la coupure un client se trouvait.
+                    </p>
+                    <p>
+                        Remplacé par un jeu <strong>multi-photographies</strong> : huit
+                        instantanés mensuels, variables calculées sur le passé, cible sur
+                        les 30 jours suivants, population restreinte aux clients actifs.
+                    </p>
+                    <div class="delta">
+                        <div class="delta-item">
+                            <span class="delta-label">Churn train / test</span>
+                            <span class="delta-value before">96 % / 47 %</span>
+                        </div>
+                        <span class="delta-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <div class="delta-item">
+                            <span class="delta-label">Stable sur 8 photographies</span>
+                            <span class="delta-value after">51 % – 54 %</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="fix-card resolved">
+                    <h3><span class="fix-index">03</span> Jeu de test utilisé comme validation</h3>
+                    <p>
+                        Le jeu de test servait à la fois d'ensemble d'arrêt anticipé et de
+                        mesure finale — d'où des métriques de validation et de test
+                        rigoureusement identiques dans les rapports, et une estimation
+                        optimiste.
+                    </p>
+                    <p>
+                        Les trois volets sont désormais disjoints et ordonnés dans le
+                        temps. <strong>Le test n'est regardé qu'une fois</strong>, à la
+                        fin, et ne participe à aucune décision.
+                    </p>
+                </article>
+            </div>
+
+            <details class="note-box">
+                <summary><i class="fas fa-flask-vial"></i> Pourquoi ces défauts n'étaient pas visibles</summary>
+                <div class="note-body">
+                <p>
+                    Aucun ne provoquait d'erreur. Le pipeline s'exécutait, les métriques
+                    restaient plausibles, et la décision business était fausse. C'est le
+                    mode de défaillance dominant d'une chaîne d'apprentissage : la panne
+                    silencieuse.
+                </p>
+                <p>
+                    D'où les trois défenses mises en place — un garde-fou qui lève une
+                    exception, un contrat de données bloquant à chaque étape, et un test
+                    qui ajoute des transactions futures puis vérifie que
+                    <strong>rien ne change</strong> dans les variables calculées.
+                </p>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- Industrialisation Section -->
+    <section id="industrialisation" class="section solution-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-diagram-project"></i> Industrialisation</h2>
+                <p style="color: var(--text-light); max-width: 760px; margin: 0.75rem auto 0;">
+                    Trois DAGs Airflow, un registre de modèles et une surveillance qui
+                    décide — sans réentraîner au moindre signal.
+                </p>
+            </div>
+
+            <div class="pipeline">
+                <svg viewBox="0 0 900 250" role="img"
+                     aria-label="Chaîne de traitement : ingestion, conformité RGPD, variables, modèle, registre, puis boucle de surveillance vers le réentraînement.">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                                markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path class="flow-head" d="M 0 0 L 10 5 L 0 10 z"/>
+                        </marker>
+                    </defs>
+
+                    <g font-family="-apple-system, Segoe UI, Roboto, sans-serif" text-anchor="middle">
+                        <rect class="node-box accent" x="20" y="40" width="150" height="70" rx="10" stroke-width="1.5"/>
+                        <text class="node-title" x="95" y="68" font-size="13">Ingestion</text>
+                        <text class="node-sub" x="95" y="86" font-size="10.5">transactions</text>
+                        <text class="node-sub" x="95" y="99" font-size="10.5">+ contrat d'entrée</text>
+
+                        <rect class="node-box legal" x="195" y="40" width="150" height="70" rx="10" stroke-width="2"/>
+                        <text class="node-title" x="270" y="64" font-size="13">Conformité</text>
+                        <text class="node-sub" x="270" y="81" font-size="10.5">conservation</text>
+                        <text class="node-sub" x="270" y="94" font-size="10.5">base légale</text>
+                        <text class="node-sub" x="270" y="107" font-size="10.5">minimisation</text>
+
+                        <rect class="node-box" x="370" y="40" width="150" height="70" rx="10" stroke-width="1.5"/>
+                        <text class="node-title" x="445" y="64" font-size="13">Variables</text>
+                        <text class="node-sub" x="445" y="81" font-size="10.5">8 photographies</text>
+                        <text class="node-sub" x="445" y="94" font-size="10.5">fenêtre fermée</text>
+                        <text class="node-sub" x="445" y="107" font-size="10.5">+ contrat de sortie</text>
+
+                        <rect class="node-box" x="545" y="40" width="150" height="70" rx="10" stroke-width="1.5"/>
+                        <text class="node-title" x="620" y="64" font-size="13">Modèle</text>
+                        <text class="node-sub" x="620" y="81" font-size="10.5">train / val / test</text>
+                        <text class="node-sub" x="620" y="94" font-size="10.5">disjoints</text>
+                        <text class="node-sub" x="620" y="107" font-size="10.5">seuil économique</text>
+
+                        <rect class="node-box accent" x="720" y="40" width="150" height="70" rx="10" stroke-width="1.5"/>
+                        <text class="node-title" x="795" y="64" font-size="13">Registre</text>
+                        <text class="node-sub" x="795" y="81" font-size="10.5">version + empreinte</text>
+                        <text class="node-sub" x="795" y="94" font-size="10.5">promotion si gain</text>
+                        <text class="node-sub" x="795" y="107" font-size="10.5">retour arrière</text>
+
+                        <path class="flow" d="M 170 75 L 189 75" stroke-width="1.5" marker-end="url(#arrow)"/>
+                        <path class="flow" d="M 345 75 L 364 75" stroke-width="1.5" marker-end="url(#arrow)"/>
+                        <path class="flow" d="M 520 75 L 539 75" stroke-width="1.5" marker-end="url(#arrow)"/>
+                        <path class="flow" d="M 695 75 L 714 75" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                        <rect class="node-box" x="195" y="175" width="620" height="56" rx="10" stroke-width="1.5"
+                              stroke-dasharray="5 4"/>
+                        <text class="node-title" x="505" y="199" font-size="13">Surveillance quotidienne</text>
+                        <text class="node-sub" x="505" y="217" font-size="10.5">dérive des données · dérive des scores · performance sur cohorte mûre · contrôles RGPD</text>
+
+                        <path class="flow" d="M 795 110 L 795 150 L 795 169" stroke-width="1.5" marker-end="url(#arrow)"/>
+                        <path class="flow" d="M 620 175 L 620 116" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+                        <text class="node-sub" x="620" y="148" font-size="10" text-anchor="middle">réentraînement</text>
+                        <text class="node-sub" x="620" y="160" font-size="10" text-anchor="middle">si motif</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <div class="card-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>La conformité d'abord</h3>
+                    <p>
+                        Le filtre de base légale s'applique <strong>avant</strong> le
+                        calcul des variables. Filtrer en aval ne servirait à rien : les
+                        données des personnes opposées seraient déjà encodées dans les
+                        poids du modèle.
+                    </p>
                 </div>
                 <div class="solution-card">
-                    <div class="card-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <h3>Dashboard Complet</h3>
+                    <div class="card-icon"><i class="fas fa-file-shield"></i></div>
+                    <h3>Contrats de données</h3>
                     <p>
-                        Une vue d’ensemble du projet : churn, performance, segments et
-                        impact financier, pour une lecture rapide en entretien.
+                        Chaque attente est nommée et bloquante. La panne silencieuse est
+                        le mode de défaillance dominant d'un pipeline ML : un contrat
+                        non respecté arrête la chaîne au lieu de laisser passer une
+                        table fausse.
                     </p>
-                    <a class="btn btn-secondary" href="visualizations/00_dashboard_complet.html">Voir le dashboard</a>
                 </div>
+                <div class="solution-card">
+                    <div class="card-icon"><i class="fas fa-code-branch"></i></div>
+                    <h3>Registre de modèles</h3>
+                    <p>
+                        Chaque version porte l'empreinte SHA-256 de son jeu
+                        d'entraînement. On peut démontrer sur quelles données un modèle
+                        a été construit, et revenir en arrière en une opération.
+                    </p>
+                </div>
+            </div>
+
+            <details class="note-box">
+                <summary><i class="fas fa-wave-square"></i> Réentraîner ne veut pas dire déployer</summary>
+                <div class="note-body">
+                <p>
+                    Réentraîner à chaque alerte de dérive fait poursuivre le bruit au
+                    modèle : chaque version diffère un peu, et plus personne ne sait
+                    laquelle faisait quoi. Le déclencheur exige donc une
+                    <strong>dérive conjointe</strong> — des données
+                    <em>et</em> des scores — ou une dégradation confirmée sur une cohorte
+                    dont la fenêtre de 30 jours est refermée.
+                </p>
+                <p>
+                    Vérifié à l'exécution : <strong>8 variables sur 17 dépassent le seuil
+                    de dérive</strong>, parce qu'elles sont cumulatives et croissent
+                    mécaniquement avec l'historique. Les scores étant restés stables et
+                    la performance conforme, aucun réentraînement n'a été déclenché.
+                    C'est exactement le comportement attendu.
+                </p>
+                <p>
+                    Et un candidat réentraîné n'est promu que s'il bat la production sur
+                    le même jeu de test. Une seule exception, délibérée : un
+                    réentraînement motivé par une demande d'effacement est promu même
+                    sans gain — le motif est juridique, pas statistique.
+                </p>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- Conformité Section -->
+    <section id="conformite" class="section impact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-scale-balanced"></i> Conformité RGPD</h2>
+            </div>
+
+            <div class="rule-banner">
+                <strong>Scorer n'est pas contacter.</strong>
+                <span>
+                    Deux finalités, deux bases légales, deux périmètres. Les confondre est
+                    l'erreur qui fait basculer un projet de rétention dans la prospection
+                    non consentie.
+                </span>
+            </div>
+
+            <div class="legal-grid">
+                <div class="legal-card">
+                    <h3>Calcul du score</h3>
+                    <span class="legal-basis">Intérêt légitime — art. 6.1.f</span>
+                    <ul>
+                        <li>Périmètre : tous les clients actifs</li>
+                        <li>Sortie : droit d'opposition (art. 21), sans motivation</li>
+                        <li>Aucune donnée collectée en plus pour cette finalité</li>
+                    </ul>
+                    <span class="legal-figure">97 %</span>
+                    <span class="legal-basis">de la base scorable</span>
+                </div>
+
+                <div class="legal-card">
+                    <h3>Envoi d'une sollicitation</h3>
+                    <span class="legal-basis">Consentement — art. 6.1.a + L34-5 CPCE</span>
+                    <ul>
+                        <li>Périmètre : opt-in valide pour le canal visé</li>
+                        <li>Sortie : absence d'opt-in, retrait, péremption à 25 mois</li>
+                        <li>Un score élevé ne crée aucun droit à contacter</li>
+                    </ul>
+                    <span class="legal-figure">56 %</span>
+                    <span class="legal-basis">de la base contactable</span>
+                </div>
+            </div>
+
+            <details class="note-box">
+                <summary><i class="fas fa-eraser"></i> Le droit à l'effacement, traité jusqu'au bout</summary>
+                <div class="note-body">
+                <p>
+                    Supprimer une personne des fichiers <strong>ne la retire pas du
+                    modèle</strong> : un modèle entraîné a mémorisé une part de
+                    l'information de chaque individu de son jeu d'entraînement.
+                    L'effacement n'est complet qu'après réentraînement sans elle.
+                </p>
+                <p>
+                    Une demande en attente est donc traitée comme un motif de
+                    réentraînement de priorité critique, qui prime sur tout critère de
+                    performance — et le modèle purgé remplace la production même sans
+                    amélioration.
+                </p>
+                </div>
+            </details>
+
+            <div class="doc-links">
+                <a class="doc-link" href="https://github.com/mneimy/churn-prediction/blob/main/docs/compliance/registre-traitements.md" target="_blank" rel="noopener">
+                    <i class="fas fa-book"></i>
+                    <span><strong>Registre des traitements</strong>
+                    <span>Finalités, bases légales, durées, droits — art. 30</span></span>
+                </a>
+                <a class="doc-link" href="https://github.com/mneimy/churn-prediction/blob/main/docs/compliance/aipd-screening.md" target="_blank" rel="noopener">
+                    <i class="fas fa-magnifying-glass-chart"></i>
+                    <span><strong>Screening AIPD</strong>
+                    <span>Analyse préalable — conclut qu'une AIPD est requise</span></span>
+                </a>
+                <a class="doc-link" href="https://github.com/mneimy/churn-prediction/blob/main/docs/compliance/politique-consentement.md" target="_blank" rel="noopener">
+                    <i class="fas fa-square-check"></i>
+                    <span><strong>Politique de consentement</strong>
+                    <span>Opt-in, opposition, retrait, péremption</span></span>
+                </a>
+                <a class="doc-link" href="https://github.com/mneimy/churn-prediction/blob/main/docs/compliance/securite-anssi.md" target="_blank" rel="noopener">
+                    <i class="fas fa-lock"></i>
+                    <span><strong>Mesures de sécurité</strong>
+                    <span>Art. 32 RGPD et hygiène ANSSI</span></span>
+                </a>
+            </div>
+
+            <div class="jump-banner">
+                <p>
+                    <strong>Envie de voir plutôt que de lire ?</strong>
+                    Les huit pages interactives déroulent le même propos en graphiques.
+                </p>
+                <a class="btn btn-primary" href="#visualisations">
+                    <i class="fas fa-chart-area"></i> Voir les visualisations
+                </a>
             </div>
         </div>
     </section>
@@ -356,7 +835,7 @@
     <section id="demo" class="section demo-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-play-circle"></i> Démonstration</h2>
+                <h2><i class="fas fa-play-circle"></i> La démonstration</h2>
             </div>
             <div class="demo-content">
                 <div class="demo-card">
@@ -380,17 +859,17 @@ curl -X POST "http://localhost:8000/predict" \
                     </div>
                 </div>
                 <div class="demo-steps">
-                    <h3><i class="fas fa-list-ol"></i> Installation Rapide</h3>
+                    <h3><i class="fas fa-list-ol"></i> Installation rapide</h3>
                     <ol>
-                        <li>Cloner le repository</li>
+                        <li>Cloner le dépôt</li>
                         <li>Créer un environnement virtuel</li>
                         <li>Installer les dépendances</li>
                         <li>Entraîner le modèle</li>
                         <li>Lancer l'API</li>
                     </ol>
-                    <a href="https://github.com/mneimy/churn-prediction/blob/main/README.md" 
-                       class="btn btn-primary" target="_blank">
-                        <i class="fas fa-book"></i> Documentation
+                    <a href="https://github.com/mneimy/churn-prediction/blob/main/README.md"
+                       class="btn btn-primary" target="_blank" rel="noopener">
+                        <i class="fas fa-book"></i> Lire la documentation
                     </a>
                 </div>
             </div>
@@ -398,19 +877,19 @@ curl -X POST "http://localhost:8000/predict" \
     </section>
 
     <!-- CTA Section -->
-    <section class="section cta-section">
+    <section id="contact" class="section cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2>Prêt à démarrer ?</h2>
-                <p>Explorez le code, testez le modèle, ou contactez-moi pour une collaboration</p>
+                <h2>Un enjeu de rétention chez vous ?</h2>
+                <p>Explorez le code, testez le modèle, ou parlons de votre cas d'usage.</p>
                 <div class="cta-buttons">
-                    <a href="https://github.com/mneimy/churn-prediction" 
-                       class="btn btn-primary" target="_blank">
-                        <i class="fab fa-github"></i> Voir le Code
+                    <a href="https://github.com/mneimy/churn-prediction"
+                       class="btn btn-primary" target="_blank" rel="noopener">
+                        <i class="fab fa-github"></i> Voir le code
                     </a>
-                    <a href="https://github.com/mneimy" 
-                       class="btn btn-secondary" target="_blank">
-                        <i class="fas fa-envelope"></i> Me Contacter
+                    <a href="https://linkedin.com/in/mneimy"
+                       class="btn btn-secondary" target="_blank" rel="noopener">
+                        <i class="fab fa-linkedin"></i> Me contacter
                     </a>
                 </div>
             </div>
@@ -420,12 +899,12 @@ curl -X POST "http://localhost:8000/predict" \
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Portfolio Data Science. Tous droits réservés.</p>
+            <p>&copy; 2026 MN Conseil — Portfolio Data Science.</p>
             <div class="footer-links">
-                <a href="https://github.com/mneimy" target="_blank">
+                <a href="https://github.com/mneimy" target="_blank" rel="noopener" aria-label="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="https://linkedin.com/in/mneimy" target="_blank">
+                <a href="https://linkedin.com/in/mneimy" target="_blank" rel="noopener" aria-label="LinkedIn">
                     <i class="fab fa-linkedin"></i>
                 </a>
             </div>

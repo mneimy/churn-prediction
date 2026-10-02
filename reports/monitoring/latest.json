@@ -1,0 +1,199 @@
+{
+  "date": "2026-09-30T03:42:30.537513",
+  "version_modele": "v0001",
+  "age_modele_jours": 0,
+  "derive_donnees": {
+    "calcule_le": "2026-09-30T03:42:30.512304",
+    "lignes_reference": 4517,
+    "lignes_courantes": 4523,
+    "seuil_psi": 0.2,
+    "features_en_derive": 8,
+    "features_analysees": 17,
+    "derive_detectee": true,
+    "psi_max": 4.6786,
+    "detail_features": [
+      {
+        "feature": "days_since_first_order",
+        "psi": 4.6786,
+        "interpretation": "dérive significative",
+        "ks_pvalue": 0.0,
+        "moyenne_reference": 144.6792,
+        "moyenne_courante": 347.8074
+      },
+      {
+        "feature": "total_orders",
+        "psi": 1.1011,
+        "interpretation": "dérive significative",
+        "ks_pvalue": 0.0,
+        "moyenne_reference": 4.3691,
+        "moyenne_courante": 9.1081
+      },
+      {
+        "feature": "total_revenue",
+        "psi": 1.0699,
+        "interpretation": "dérive significative",
+        "ks_pvalue": 0.0,
+        "moyenne_reference": 269.8386,
+        "moyenne_courante": 560.7809
+      },
+      {
+        "feature": "month",
+        "psi": 1.0,
+        "interpretation": "dérive significative",
+        "ks_pvalue": 0.0,
+        "moyenne_reference": 5.0,
+        "moyenne_courante": 12.0
+      },
+      {
+        "feature": "day_of_week",
+        "psi": 1.0,
+        "interpretation": "dérive significative",
+        "ks_pvalue": 0.0,
+        "moyenne_reference": 3.0,
+        "moyenne_courante": 0.0
+      },
+      {
+        "feature": "is_holiday_season",
+        "psi": 1.0,
+        "interpretation": "dérive significative",
+        "ks_pvalue": 0.0,
+        "moyenne_reference": 0.0,
+        "moyenne_courante": 1.0
+      },
+      {
+        "feature": "avg_days_between_orders",
+        "psi": 0.5116,
+        "interpretation": "dérive significative",
+        "ks_pvalue": 0.0,
+        "moyenne_reference": 38.3124,
+        "moyenne_courante": 54.4413
+      },
+      {
+        "feature": "max_order_value",
+        "psi": 0.3347,
+        "interpretation": "dérive significative",
+        "ks_pvalue": 0.0,
+        "moyenne_reference": 94.098,
+        "moyenne_courante": 114.8216
+      },
+      {
+        "feature": "avg_order_value",
+        "psi": 0.1747,
+        "interpretation": "dérive modérée",
+        "ks_pvalue": 0.0,
+        "moyenne_reference": 61.7905,
+        "moyenne_courante": 61.5893
+      },
+      {
+        "feature": "purchase_frequency_30d",
+        "psi": 0.0034,
+        "interpretation": "stable",
+        "ks_pvalue": 0.51985,
+        "moyenne_reference": 0.6991,
+        "moyenne_courante": 0.7181
+      },
+      {
+        "feature": "days_since_last_order",
+        "psi": 0.0025,
+        "interpretation": "stable",
+        "ks_pvalue": 0.921192,
+        "moyenne_reference": 44.4346,
+        "moyenne_courante": 44.9958
+      },
+      {
+        "feature": "purchase_frequency_90d",
+        "psi": 0.0016,
+        "interpretation": "stable",
+        "ks_pvalue": 0.866718,
+        "moyenne_reference": 2.0921,
+        "moyenne_courante": 2.0769
+      },
+      {
+        "feature": "avg_basket_value",
+        "psi": 0.0013,
+        "interpretation": "stable",
+        "ks_pvalue": 0.724754,
+        "moyenne_reference": 30.3621,
+        "moyenne_courante": 30.3448
+      },
+      {
+        "feature": "product_category_diversity",
+        "psi": 0.0012,
+        "interpretation": "stable",
+        "ks_pvalue": 0.640234,
+        "moyenne_reference": 1.6794,
+        "moyenne_courante": 1.6531
+      },
+      {
+        "feature": "email_open_rate_30d",
+        "psi": 0.0007,
+        "interpretation": "stable",
+        "ks_pvalue": 0.723805,
+        "moyenne_reference": 0.2379,
+        "moyenne_courante": 0.2473
+      },
+      {
+        "feature": "website_visits_30d",
+        "psi": 0.0003,
+        "interpretation": "stable",
+        "ks_pvalue": 0.686145,
+        "moyenne_reference": 0.4162,
+        "moyenne_courante": 0.4415
+      },
+      {
+        "feature": "cart_abandonment_rate",
+        "psi": 0.0,
+        "interpretation": "stable",
+        "ks_pvalue": 1.0,
+        "moyenne_reference": 0.0949,
+        "moyenne_courante": 0.0942
+      }
+    ],
+    "derive_predictions": null
+  },
+  "derive_predictions": {
+    "psi": 0.0768,
+    "interpretation": "stable",
+    "derive_detectee": false,
+    "score_moyen_reference": 0.5064,
+    "score_moyen_courant": 0.5108,
+    "taux_risque_eleve_reference": 0.0675,
+    "taux_risque_eleve_courant": 0.0424
+  },
+  "performance": {
+    "evalue_le": "2026-09-30T03:42:30.533991",
+    "cohorte": "2025-12-01",
+    "version_modele": "v0001",
+    "lignes": 4523,
+    "metriques": {
+      "f1": 0.5302,
+      "precision": 0.6772,
+      "recall": 0.4357,
+      "roc_auc": 0.6772,
+      "brier": 0.2265,
+      "taux_churn_observe": 0.512,
+      "score_moyen": 0.5108
+    },
+    "reference": {
+      "f1": 0.5272,
+      "precision": 0.681,
+      "recall": 0.4301
+    },
+    "ecart_f1": 0.003
+  },
+  "demandes_effacement_en_attente": 0,
+  "decision": {
+    "reentrainement_requis": false,
+    "priorite": "aucune",
+    "motifs": [],
+    "signaux": {
+      "ecart_performance": 0.003,
+      "features_en_derive": 8,
+      "psi_max": 4.6786,
+      "derive_predictions": false,
+      "psi_predictions": 0.0768,
+      "age_modele_jours": 0
+    },
+    "decide_le": "2026-09-30T03:42:30.537492"
+  }
+}

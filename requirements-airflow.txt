@@ -1,0 +1,21 @@
+# Orchestration — installé dans un environnement SÉPARÉ (.venv-airflow).
+#
+# Airflow épingle un grand nombre de dépendances transitives ; l'installer
+# dans le même environnement que les bibliothèques ML force des versions
+# anciennes de pandas et scikit-learn. Deux environnements, deux contrats.
+#
+#   uv venv --python 3.12 .venv-airflow
+#   uv pip install --python .venv-airflow/bin/python -r requirements-airflow.txt \
+#     --constraint https://raw.githubusercontent.com/apache/airflow/constraints-3.3.2/constraints-3.12.txt
+
+apache-airflow==3.3.2
+
+# Dépendances que les tâches importent depuis src/
+pandas>=2.2.0
+numpy>=1.26.0,<2.3
+scikit-learn>=1.4.0
+xgboost>=2.1.0
+scipy>=1.13.0
+pyyaml>=6.0.1
+joblib>=1.4.0
+pyarrow>=15.0.0

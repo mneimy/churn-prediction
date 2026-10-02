@@ -21,6 +21,9 @@ warnings.filterwarnings('ignore')
 # Ajouter le chemin du projet
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(Path(__file__).parent))
+
+from story_template import write_story_page, latest_snapshot  # noqa: E402
 
 # Chemins
 DATA_DIR = project_root / "data"
@@ -31,64 +34,13 @@ MODELS_DIR = project_root / "models"
 VIZ_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def write_story_page(title, subtitle, paragraphs, fig, output_path):
-    """Crée une page HTML avec explications et graphique Plotly."""
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig_html = fig.to_html(full_html=False, include_plotlyjs="cdn")
-    paragraphs_html = "\n".join([f"<p>{p}</p>" for p in paragraphs])
-
-    html = f"""<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} | Churn Prediction</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        body {{ background: #f8fafc; }}
-        .viz-wrapper {{ max-width: 1100px; margin: 40px auto; padding: 0 20px; }}
-        .viz-header {{ margin-bottom: 16px; }}
-        .viz-subtitle {{ color: #4b5563; margin-top: 8px; }}
-        .viz-text {{ background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }}
-        .viz-text p {{ margin: 0 0 12px 0; line-height: 1.6; }}
-        .viz-chart {{ margin-top: 20px; background: #ffffff; border-radius: 12px; padding: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }}
-        .viz-actions {{ margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }}
-        .viz-link {{ display: inline-block; padding: 10px 14px; border-radius: 8px; background: #111827; color: #ffffff; text-decoration: none; }}
-        .viz-link.secondary {{ background: #e5e7eb; color: #111827; }}
-    </style>
-</head>
-<body>
-    <div class="viz-wrapper">
-        <div class="viz-header">
-            <a class="viz-link secondary" href="../index.html">← Retour à la page projet</a>
-            <h1>{title}</h1>
-            <p class="viz-subtitle">{subtitle}</p>
-        </div>
-        <div class="viz-text">
-            {paragraphs_html}
-        </div>
-        <div class="viz-chart">
-            {fig_html}
-        </div>
-        <div class="viz-actions">
-            <a class="viz-link" href="../index.html#demo">Voir la démo complète</a>
-            <a class="viz-link secondary" href="../index.html#impact">Retour à l'impact</a>
-        </div>
-    </div>
-    <script src="../assets/js/main.js"></script>
-</body>
-</html>"""
-
-    output_path.write_text(html, encoding="utf-8")
-    print(f"✅ Sauvegardé : {output_path}")
-
-
 def load_data():
     """Charge les données nécessaires."""
     print("📊 Chargement des données...")
     
     df_raw = pd.read_csv(DATA_DIR / "raw" / "customers.csv", parse_dates=['order_date'])
     df_features = pd.read_csv(DATA_DIR / "processed" / "features.csv", parse_dates=['last_order_date'])
+    df_features = latest_snapshot(df_features)
     
     # Charger les métriques
     metrics_path = REPORTS_DIR / "training_metrics.json"
@@ -109,7 +61,7 @@ def create_problem_visualization(df_features):
     # Créer des bins pour analyse
     df_features['days_bin'] = pd.cut(
         df_features['days_since_last_order'],
-        bins=[0, 30, 60, 90, 180, float('inf')],
+        bins=[-1, 30, 60, 90, 180, float('inf')],
         labels=['<30j', '30-60j', '60-90j', '90-180j', '>180j']
     )
     
@@ -239,7 +191,7 @@ def create_solution_visualization(df_features, metrics):
     # Calculer les corrélations réelles
     feature_cols = [col for col in df_features.columns 
                    if col not in ['customer_id', 'first_order_date', 'last_order_date', 'churn', 
-                                 'days_bin', 'freq_bin', 'R_score', 'F_score', 'M_score', 
+                                 'snapshot_date', 'days_bin', 'freq_bin', 'R_score', 'F_score', 'M_score', 
                                  'RFM_segment', 'segment_name']]
     
     correlations = df_features[feature_cols + ['churn']].corr()['churn'].abs().sort_values(ascending=False)
@@ -248,13 +200,15 @@ def create_solution_visualization(df_features, metrics):
     fig = make_subplots(
         rows=2, cols=2,
         subplot_titles=(
-            '📈 Performance du modèle (Train vs Test)',
             '🔍 Top 10 Features Prédictives',
+            '📈 Performance du modèle (Train vs Test)',
             '📊 Corrélation Features vs Churn',
             '💡 Insights : Features par catégorie'
         ),
         specs=[[{"type": "bar"}, {"type": "bar"}],
-               [{"type": "bar"}, {"type": "bar"}]]
+               [{"type": "bar"}, {"type": "bar"}]],
+        horizontal_spacing=0.18,
+        vertical_spacing=0.16,
     )
     
     # 1. Performance
@@ -275,18 +229,18 @@ def create_solution_visualization(df_features, metrics):
         
         fig.add_trace(
             go.Bar(x=metric_names, y=train_vals, name='Train', marker_color='#2563eb'),
-            row=1, col=1
+            row=1, col=2
         )
         fig.add_trace(
             go.Bar(x=metric_names, y=test_vals, name='Test', marker_color='#10b981'),
-            row=1, col=1
+            row=1, col=2
         )
     else:
         # Valeurs par défaut si métriques non disponibles
         fig.add_trace(
-            go.Bar(x=['F1', 'Precision', 'Recall'], y=[0.87, 0.82, 0.91], 
+            go.Bar(x=['F1', 'Precision', 'Recall'], y=[0.87, 0.82, 0.91],
                   marker_color='#10b981', name='Performance'),
-            row=1, col=1
+            row=1, col=2
         )
     
     # 2. Top 10 features
@@ -301,9 +255,10 @@ def create_solution_visualization(df_features, metrics):
             marker_color=colors,
             text=[f"{v:.3f}" for v in correlations.values],
             textposition='auto',
-            name="Importance"
+            name="Importance",
+            showlegend=False,
         ),
-        row=1, col=2
+        row=1, col=1
     )
     
     # 3. Corrélations avec signe (positif/négatif)
@@ -314,12 +269,15 @@ def create_solution_visualization(df_features, metrics):
     
     fig.add_trace(
         go.Bar(
-            x=correlations_signed.index,
-            y=correlations_signed.values,
+            x=correlations_signed.values,
+            y=correlations_signed.index,
+            orientation='h',
             marker_color=colors_signed,
-            text=[f"{v:.3f}" for v in correlations_signed.values],
-            textposition='auto',
-            name="Corrélation"
+            text=[f"{v:+.3f}" for v in correlations_signed.values],
+            textposition='outside',
+            cliponaxis=False,
+            name="Corrélation",
+            showlegend=False,
         ),
         row=2, col=1
     )
@@ -343,24 +301,38 @@ def create_solution_visualization(df_features, metrics):
             marker_color='#2563eb',
             text=[f"{v:.3f}" for v in cat_importance.values()],
             textposition='auto',
-            name="Importance"
+            name="Importance",
+            showlegend=False,
         ),
         row=2, col=2
     )
     
     fig.update_layout(
-        height=800,
+        height=850,
         title_text="🤖 La Solution : Modèle ML et Features Importantes",
         showlegend=True,
-        template="plotly_white"
+        template="plotly_white",
+        # Marge gauche elargie : les noms de features sont longs, et c'est
+        # desormais la colonne 1 qui les porte.
+        margin=dict(l=170, r=40, t=90, b=80),
     )
-    
-    fig.update_xaxes(title_text="Métriques", row=1, col=1)
-    fig.update_yaxes(title_text="Score", row=1, col=1)
-    fig.update_xaxes(title_text="Corrélation absolue", row=1, col=2)
-    fig.update_xaxes(title_text="Features", row=2, col=1)
-    fig.update_yaxes(title_text="Corrélation", row=2, col=1)
-    fig.update_xaxes(title_text="Catégorie", row=2, col=2)
+
+    # Titres d'axes suivant la permutation des deux graphiques du haut.
+    fig.update_xaxes(title_text="Corrélation absolue", row=1, col=1)
+    fig.update_yaxes(tickfont_size=10, automargin=True, row=1, col=1)
+    fig.update_xaxes(title_text="Métriques", row=1, col=2)
+    fig.update_yaxes(title_text="Score", row=1, col=2)
+    # Marge de part et d'autre : sans elle, l'etiquette d'une barre negative
+    # (ecrite a sa gauche) vient recouvrir le nom de la feature.
+    amplitude = float(abs(correlations_signed).max())
+    fig.update_xaxes(
+        title_text="Corrélation signée",
+        range=[-amplitude * 1.45, amplitude * 1.45],
+        zeroline=True, zerolinewidth=1, zerolinecolor="#94a3b8",
+        row=2, col=1,
+    )
+    fig.update_yaxes(tickfont_size=10, automargin=True, row=2, col=1)
+    fig.update_xaxes(title_text="Catégorie", automargin=True, row=2, col=2)
     fig.update_yaxes(title_text="Importance totale", row=2, col=2)
     
     output_path = VIZ_DIR / "02_solution_ml.html"
@@ -501,7 +473,7 @@ def create_storytelling_dashboard(df_features, metrics):
     if 'risk_segment' not in df_features.columns:
         df_features['risk_segment'] = pd.cut(
             df_features['days_since_last_order'],
-            bins=[0, 30, 60, 90, float('inf')],
+            bins=[-1, 30, 60, 90, float('inf')],
             labels=['Actif (<30j)', 'Modéré (30-60j)', 'Inactif (60-90j)', 'Très inactif (>90j)']
         )
     

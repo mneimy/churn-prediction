@@ -1,4 +1,48 @@
 {
+  "version": "v0001",
+  "created_at": "2026-09-30T03:17:16.673762",
+  "stage": "production",
+  "metrics": {
+    "train_f1": 0.5543,
+    "train_precision": 0.7594,
+    "train_recall": 0.4364,
+    "train_roc_auc": 0.7187,
+    "train_brier": 0.2176,
+    "val_f1": 0.5395,
+    "val_precision": 0.6809,
+    "val_recall": 0.4467,
+    "val_roc_auc": 0.6568,
+    "val_brier": 0.2307,
+    "test_f1": 0.5272,
+    "test_precision": 0.681,
+    "test_recall": 0.4301,
+    "test_roc_auc": 0.663,
+    "test_brier": 0.2295,
+    "train_precision_at_10": 0.8482,
+    "train_lift_at_10": 1.5753,
+    "train_precision_at_20": 0.8018,
+    "train_lift_at_20": 1.4892,
+    "train_precision_at_30": 0.7634,
+    "train_lift_at_30": 1.4177,
+    "train_base_rate": 0.5385,
+    "val_precision_at_10": 0.7385,
+    "val_lift_at_10": 1.3846,
+    "val_precision_at_20": 0.7157,
+    "val_lift_at_20": 1.3419,
+    "val_precision_at_30": 0.6847,
+    "val_lift_at_30": 1.2838,
+    "val_base_rate": 0.5333,
+    "test_precision_at_10": 0.7377,
+    "test_lift_at_10": 1.4022,
+    "test_precision_at_20": 0.7151,
+    "test_lift_at_20": 1.3594,
+    "test_precision_at_30": 0.6883,
+    "test_lift_at_30": 1.3083,
+    "test_base_rate": 0.5261,
+    "decision_threshold": 0.6,
+    "overfitting_gap_f1": 0.0271,
+    "best_iteration": 69.0
+  },
   "feature_names": [
     "days_since_first_order",
     "days_since_last_order",
@@ -19,15 +63,102 @@
     "is_holiday_season"
   ],
   "model_params": {
-    "n_estimators": 200,
-    "max_depth": 6,
-    "learning_rate": 0.05,
-    "subsample": 0.8,
+    "objective": "binary:logistic",
+    "base_score": null,
+    "booster": null,
+    "callbacks": null,
+    "colsample_bylevel": null,
+    "colsample_bynode": null,
     "colsample_bytree": 0.8,
+    "device": null,
+    "early_stopping_rounds": 30,
+    "enable_categorical": true,
+    "eval_metric": "logloss",
+    "feature_types": null,
+    "feature_weights": null,
+    "gamma": null,
+    "grow_policy": null,
+    "importance_type": null,
+    "interaction_constraints": null,
+    "learning_rate": 0.05,
+    "max_bin": null,
+    "max_cat_threshold": null,
+    "max_cat_to_onehot": null,
+    "max_delta_step": null,
+    "max_depth": 6,
+    "max_leaves": null,
     "min_child_weight": 3,
-    "scale_pos_weight": 4.5,
-    "random_state": 42
+    "missing": NaN,
+    "monotone_constraints": null,
+    "multi_strategy": null,
+    "n_estimators": 200,
+    "n_jobs": null,
+    "num_parallel_tree": null,
+    "random_state": 42,
+    "reg_alpha": null,
+    "reg_lambda": null,
+    "sampling_method": null,
+    "scale_pos_weight": 0.857,
+    "subsample": 0.8,
+    "tree_method": null,
+    "validate_parameters": null,
+    "verbosity": null
   },
-  "trained_at": "2026-01-14T02:24:49.344548",
-  "random_seed": 42
+  "training_data_hash": "381f499f6cc51a0f831e660ddb06caa90a2db95e2be4647c75f766fbc8d04381",
+  "training_rows": 22739,
+  "reference_date": "2025-12-01",
+  "notes": "promotion: aucun modèle en production",
+  "promoted_at": "2026-09-30T03:17:16.676093",
+  "promoted_from": null,
+  "lineage": {
+    "source_donnees": "data/raw/customers.csv",
+    "transactions": 48691,
+    "clients_exclus_base_legale": 114,
+    "photographies": 8,
+    "lignes_dataset": 36410,
+    "decoupage": {
+      "methode": "découpage par date de photographie (aucun client à cheval)",
+      "train": {
+        "photographies": [
+          "2025-05-01",
+          "2025-06-01",
+          "2025-07-01",
+          "2025-08-01",
+          "2025-09-01"
+        ],
+        "lignes": 22739,
+        "taux_churn": 0.5385
+      },
+      "validation": {
+        "photographies": [
+          "2025-10-01"
+        ],
+        "lignes": 4558,
+        "taux_churn": 0.5333
+      },
+      "test": {
+        "photographies": [
+          "2025-11-01",
+          "2025-12-01"
+        ],
+        "lignes": 9113,
+        "taux_churn": 0.5261
+      },
+      "seuil_decision": {
+        "methode": "valeur nette maximale sous contrainte de capacité",
+        "economie": {
+          "cout_contact": 2.0,
+          "cout_incitation": 25.0,
+          "valeur_client": 1000.0,
+          "taux_marge": 0.25,
+          "taux_reussite_retention": 0.3
+        },
+        "taux_contact_maximal": 0.35,
+        "seuil": 0.6,
+        "taux_contact_retenu": 0.3499,
+        "precision_validation": 0.6809,
+        "valeur_nette_validation": 38385.0
+      }
+    }
+  }
 }

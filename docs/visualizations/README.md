@@ -30,8 +30,9 @@ Les pages HTML sont générées dans `docs/visualizations/` :
 - `segmentation_rfm.html` : Segmentation RFM
 - `feature_importance.html` : Features importantes
 
-Les visualisations brutes Plotly sont conservées dans `docs/visualizations/raw/`
-et intégrées via iframe dans les pages ci-dessus.
+Chaque page embarque directement son graphique Plotly (chargé depuis le CDN) :
+plus d'iframe ni d'export brut dupliqué. La mise en page commune (navigation,
+boutons, parcours précédent/suivant) est définie dans `visualizations/story_template.py`.
 
 ### Dashboard Interactif
 
@@ -51,8 +52,7 @@ python3 visualizations/create_visualizations.py
 python3 visualizations/create_all_insights.py
 ```
 
-Les fichiers HTML seront créés dans `docs/visualizations/` et les exports Plotly
-dans `docs/visualizations/raw/`.
+Les fichiers HTML seront créés dans `docs/visualizations/`.
 
 ### Ouvrir les visualisations
 

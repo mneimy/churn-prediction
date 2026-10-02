@@ -45,9 +45,10 @@ class FeatureEngineer:
         self.churn_window = self.data_config.get("churn_window_days", 30)
         
     def compute_all_features(
-        self, 
-        df: pd.DataFrame, 
-        reference_date: Optional[datetime] = None
+        self,
+        df: pd.DataFrame,
+        reference_date: Optional[datetime] = None,
+        with_target: bool = True,
     ) -> pd.DataFrame:
         """
         Calcule toutes les features pour chaque client.
@@ -69,23 +70,40 @@ class FeatureEngineer:
             reference_date = datetime.now()
         
         logger.info(f"Calcul des features avec date de référence : {reference_date}")
-        
+
+        # --- Fenêtre d'observation : barrière anti-fuite temporelle ---------
+        # Toutes les features doivent se calculer UNIQUEMENT sur ce qui est
+        # connu a la date de reference. Sans cette coupure, les agregats
+        # incluaient les commandes posterieures a reference_date, c'est-a-dire
+        # l'information meme que la target encode : le modele apprenait la
+        # reponse (F1 train 0.99) au lieu d'apprendre le comportement.
+        # Seul _add_target a le droit de regarder apres reference_date.
+        df_obs = df[df["order_date"] <= reference_date]
+
+        n_future = len(df) - len(df_obs)
+        if n_future:
+            logger.info(
+                f"Fenêtre d'observation : {len(df_obs)} transactions retenues, "
+                f"{n_future} transactions postérieures exclues des features "
+                f"(réservées au calcul de la target)."
+            )
+
         # Base clients (un client = une ligne)
-        customer_features = self._get_customer_base(df, reference_date)
+        customer_features = self._get_customer_base(df_obs, reference_date)
         
         # Features comportementales
         customer_features = self._add_behavioral_features(
-            customer_features, df, reference_date
+            customer_features, df_obs, reference_date
         )
         
         # Features transactionnelles
         customer_features = self._add_transactional_features(
-            customer_features, df, reference_date
+            customer_features, df_obs, reference_date
         )
         
         # Features d'engagement
         customer_features = self._add_engagement_features(
-            customer_features, df, reference_date
+            customer_features, df_obs, reference_date
         )
         
         # Features temporelles
@@ -93,15 +111,39 @@ class FeatureEngineer:
             customer_features, reference_date
         )
         
-        # Target : churn dans les 30 prochains jours
-        customer_features = self._add_target(
-            customer_features, df, reference_date
-        )
-        
+        # Target : churn dans les 30 prochains jours.
+        # Seule methode a recevoir le DataFrame complet : elle a besoin du futur.
+        # `with_target=False` sert au jeu multi-snapshots, qui calcule sa propre
+        # cible sur une population d'eligibilite explicite (clients actifs).
+        if with_target:
+            customer_features = self._add_target(
+                customer_features, df, reference_date
+            )
+
+        self._assert_no_temporal_leak(customer_features)
+
         logger.info(f"Features calculées : {len(customer_features)} clients, "
                    f"{len(customer_features.columns)} features")
         
         return customer_features
+
+    @staticmethod
+    def _assert_no_temporal_leak(customer_features: pd.DataFrame) -> None:
+        """
+        Garde-fou : une anciennete negative signifie qu'une commande posterieure
+        a la date de reference s'est glissee dans les features, donc que la
+        target fuit. On echoue bruyamment plutot que d'entrainer sur du faux.
+        """
+        for column in ("days_since_last_order", "days_since_first_order"):
+            if column not in customer_features.columns:
+                continue
+            negatives = int((customer_features[column] < 0).sum())
+            if negatives:
+                raise ValueError(
+                    f"Fuite temporelle détectée : {negatives} valeurs négatives "
+                    f"dans '{column}'. Une commande postérieure à la date de "
+                    f"référence a été utilisée comme feature."
+                )
     
     def _get_customer_base(
         self, 
