@@ -6,7 +6,7 @@
 }
 
 :root {
-    color-scheme: light dark;
+    color-scheme: light;
 
     /* Teintes de marque : identiques dans les deux themes */
     --primary-color: #2563eb;
@@ -15,16 +15,18 @@
     --danger-color: #ef4444;
     --warning-color: #f59e0b;
 
-    /* Surfaces et textes : redefinis en mode sombre plus bas */
+    /* Surfaces : fond blanc, nuance de bleu ciel.
+       Les cartes restent blanc pur pour ressortir sur les sections teintees ;
+       l'alternance se joue sur les sections, pas sur les cartes. */
     --page-bg: #ffffff;
     --surface: #ffffff;
-    --surface-alt: #f8fafc;
-    --surface-sunken: #f1f5f9;
+    --surface-alt: #eff6fe;      /* bleu ciel tres clair */
+    --surface-sunken: #e0edfd;   /* bleu ciel un cran plus marque */
     --dark-bg: #1e293b;
-    --light-bg: #f8fafc;
-    --text-dark: #1e293b;
-    --text-light: #64748b;
-    --border-color: #e2e8f0;
+    --light-bg: #eff6fe;
+    --text-dark: #15223a;
+    --text-light: #5a6b85;
+    --border-color: #d7e6f8;
 
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.12);
@@ -37,31 +39,15 @@
     --step-4: clamp(2.2rem, 1.6rem + 3.2vw, 3.4rem);
 }
 
-/* Mode sombre : on ne redefinit que les jetons, jamais les regles. */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --primary-color: #60a5fa;
-        --primary-strong: #93c5fd;
-        --secondary-color: #34d399;
-        --danger-color: #f87171;
-        --warning-color: #fbbf24;
-
-        --page-bg: #0b1220;
-        --surface: #151d2e;
-        --surface-alt: #0f1727;
-        --surface-sunken: #1c2740;
-        --dark-bg: #182136;
-        --light-bg: #0f1727;
-        --text-dark: #e6edf7;
-        --text-light: #97a6bd;
-        --border-color: #27344c;
-
-        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-        --shadow-lg: 0 10px 20px -3px rgba(0, 0, 0, 0.6);
-    }
-}
 
 body {
+    /* Voile bleu ciel tres diffus : evite le blanc clinique sans colorer
+       franchement le fond. `fixed` pour qu'il ne defile pas avec le contenu. */
+    background-image:
+        radial-gradient(60rem 40rem at 15% -10%, #e7f3ff 0%, transparent 60%),
+        radial-gradient(50rem 35rem at 95% 8%, #eaf4ff 0%, transparent 55%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
@@ -76,7 +62,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 48%, #0369a1 100%);
     color: white;
     padding: 100px 0;
     text-align: center;
@@ -622,7 +608,7 @@ body {
 
 /* CTA Section */
 .cta-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 48%, #0369a1 100%);
     color: white;
     text-align: center;
 }
@@ -1366,51 +1352,7 @@ html, body {
     }
 }
 
-/* ===================================================================
-   Graphiques Plotly en mode sombre
-   =================================================================== */
-/* Les figures sont générées avec le gabarit `plotly_white` : leur fond et
-   leurs axes sont clairs et figés dans le HTML. Plutôt que de les laisser
-   flotter en blanc sur une page sombre, on assume le panneau clair — motif
-   courant et lisible pour une visualisation embarquée. Repasser les figures
-   en thème sombre supposerait de les régénérer et de maintenir deux jeux. */
-@media (prefers-color-scheme: dark) {
-    .viz-chart {
-        background: #ffffff;
-        border-color: #cbd5e1;
-    }
-}
 
-/* ===================================================================
-   Boutons pleins en mode sombre
-   =================================================================== */
-/* --primary-color s'éclaircit en mode sombre (#60a5fa) pour rester lisible
-   comme couleur de texte. Mais en couleur de REMPLISSAGE, il devient un fond
-   clair : du texte blanc dessus tombe à ~2:1. On repasse donc le libellé en
-   encre sombre, comme sur n'importe quel bouton à fond clair. */
-@media (prefers-color-scheme: dark) {
-    .btn-primary,
-    .nav-links a.nav-cta {
-        color: #0b1220;
-    }
-
-    .btn-primary:hover,
-    .nav-links a.nav-cta:hover {
-        color: #0b1220;
-    }
-
-    .btn-secondary:hover {
-        color: #0b1220;
-    }
-
-    /* Le hero et le CTA gardent leur dégradé clair : leurs boutons blancs
-       conservent leur encre bleue fixe. */
-    .hero .btn-primary,
-    .cta-section .btn-primary,
-    .demo-section .btn-primary {
-        color: #1d4ed8;
-    }
-}
 
 /* ===================================================================
    Densité de la page
@@ -1687,8 +1629,3 @@ a.story-pill:focus-visible {
     color: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-    .story-pill.is-current .story-pill-rank {
-        color: #0b1220;
-    }
-}
