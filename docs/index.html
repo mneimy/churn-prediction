@@ -17,13 +17,13 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#probleme">Problème</a></li>
+                <li><a href="#visualisations">Visualisations</a></li>
                 <li><a href="#solution">Solution</a></li>
                 <li><a href="#impact">Impact</a></li>
                 <li><a href="#resultats">Résultats</a></li>
                 <li><a href="#corrections">Corrections</a></li>
                 <li><a href="#industrialisation">Industrialisation</a></li>
                 <li><a href="#conformite">Conformité</a></li>
-                <li><a href="#visualisations">Visualisations</a></li>
                 <li><a href="#demo">Démo</a></li>
                 <li><a class="nav-cta" href="#contact">Contact</a></li>
             </ul>
@@ -98,6 +98,109 @@
                         sur ceux qui en valent la peine ?
                     </p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visualizations Section -->
+    <section id="visualisations" class="section solution-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-bar"></i> Visualisations &amp; storytelling</h2>
+                <p style="color: var(--text-light); max-width: 720px; margin: 0.75rem auto 0;">
+                    Huit pages interactives qui déroulent le projet, du constat business
+                    jusqu'à la lecture technique. Chaque page se lit seule et renvoie vers la suivante.
+                </p>
+            </div>
+            <div class="viz-grid">
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-exclamation-circle"></i></div>
+                    <span class="viz-tag business">1 · Business</span>
+                    <h3>Le problème</h3>
+                    <p>
+                        Comment l'inactivité fait grimper le churn, et où fixer le seuil d'alerte.
+                    </p>
+                    <a class="viz-open" href="visualizations/01_probleme_churn.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <span class="viz-tag business">2 · Business</span>
+                    <h3>Insight : délai d'achat</h3>
+                    <p>
+                        Le signal le plus fort : au-delà de 60 jours, le risque change de nature.
+                    </p>
+                    <a class="viz-open" href="visualizations/insight_days_since_last_order.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-repeat"></i></div>
+                    <span class="viz-tag business">3 · Business</span>
+                    <h3>Insight : fréquence d'achat</h3>
+                    <p>
+                        La régularité distingue les clients installés des clients fragiles.
+                    </p>
+                    <a class="viz-open" href="visualizations/insight_purchase_frequency.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <span class="viz-tag business">4 · Business</span>
+                    <h3>Segmentation RFM</h3>
+                    <p>
+                        Où concentrer l'effort : champions, fidèles, à risque, perdus.
+                    </p>
+                    <a class="viz-open" href="visualizations/segmentation_rfm.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-brain"></i></div>
+                    <span class="viz-tag tech">5 · Technique</span>
+                    <h3>La solution ML</h3>
+                    <p>
+                        Performances et variables réellement prédictives, en langage business.
+                    </p>
+                    <a class="viz-open" href="visualizations/02_solution_ml.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-sliders"></i></div>
+                    <span class="viz-tag tech">6 · Technique</span>
+                    <h3>Features importantes</h3>
+                    <p>
+                        Ce que le modèle regarde pour décider, donc ce qu'il faut suivre.
+                    </p>
+                    <a class="viz-open" href="visualizations/feature_importance.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-euro-sign"></i></div>
+                    <span class="viz-tag business">7 · Business</span>
+                    <h3>Impact business</h3>
+                    <p>
+                        Le scénario chiffré : churn évité, revenus préservés, ROI de campagne.
+                    </p>
+                    <a class="viz-open" href="visualizations/03_impact_business.html">
+                        Ouvrir <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
+                <article class="viz-card">
+                    <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                    <span class="viz-tag">8 · Synthèse</span>
+                    <h3>Dashboard complet</h3>
+                    <p>
+                        Tout en une page : churn, performance, segments, impact financier.
+                    </p>
+                    <a class="viz-open" href="visualizations/00_dashboard_complet.html">
+                        Ouvrir le dashboard <i class="fas fa-arrow-right"></i>
+                    </a>
+                </article>
             </div>
         </div>
     </section>
@@ -183,8 +286,9 @@
                     <div class="impact-detail">sur 12 mois</div>
                 </div>
             </div>
-            <div class="roi-box">
-                <h3><i class="fas fa-calculator"></i> Détail du calcul</h3>
+            <details class="note-box roi-box">
+                <summary><i class="fas fa-calculator"></i> Détail du calcul</summary>
+                <div class="note-body">
                 <ul>
                     <li><strong>Clients préservés :</strong> 4,5 points de churn évités × 4 000 clients = <strong>180 clients/an</strong></li>
                     <li><strong>Valeur client moyenne :</strong> 1 000 €/an</li>
@@ -192,7 +296,8 @@
                     <li><strong>Coût du projet :</strong> 25 k€ (build + run première année)</li>
                     <li><strong>ROI :</strong> <span class="highlight">620 % sur 12 mois</span></li>
                 </ul>
-            </div>
+                </div>
+            </details>
             <div class="note-box">
                 <h3><i class="fas fa-flask"></i> Comment lire ces chiffres</h3>
                 <p>
@@ -320,14 +425,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="note-box">
-                    <h3><i class="fas fa-microscope"></i> Lecture des résultats</h3>
+                <details class="note-box" open>
+                    <summary><i class="fas fa-microscope"></i> Lecture des résultats</summary>
+                    <div class="note-body">
                     <p>
                         Le chiffre qui compte pour une équipe marketing n'est pas le F1
                         mais le <strong>lift</strong> : elle ne contacte jamais toute la
                         base, elle contacte un budget.
                     </p>
-                </div>
+                    </div>
+                </details>
 
                 <div class="table-wrap">
                     <table class="data-table">
@@ -479,8 +586,9 @@
                 </article>
             </div>
 
-            <div class="note-box">
-                <h3><i class="fas fa-flask-vial"></i> Pourquoi ces défauts n'étaient pas visibles</h3>
+            <details class="note-box">
+                <summary><i class="fas fa-flask-vial"></i> Pourquoi ces défauts n'étaient pas visibles</summary>
+                <div class="note-body">
                 <p>
                     Aucun ne provoquait d'erreur. Le pipeline s'exécutait, les métriques
                     restaient plausibles, et la décision business était fausse. C'est le
@@ -493,7 +601,8 @@
                     qui ajoute des transactions futures puis vérifie que
                     <strong>rien ne change</strong> dans les variables calculées.
                 </p>
-            </div>
+                </div>
+            </details>
         </div>
     </section>
 
@@ -598,8 +707,9 @@
                 </div>
             </div>
 
-            <div class="note-box">
-                <h3><i class="fas fa-wave-square"></i> Réentraîner ne veut pas dire déployer</h3>
+            <details class="note-box">
+                <summary><i class="fas fa-wave-square"></i> Réentraîner ne veut pas dire déployer</summary>
+                <div class="note-body">
                 <p>
                     Réentraîner à chaque alerte de dérive fait poursuivre le bruit au
                     modèle : chaque version diffère un peu, et plus personne ne sait
@@ -621,7 +731,8 @@
                     réentraînement motivé par une demande d'effacement est promu même
                     sans gain — le motif est juridique, pas statistique.
                 </p>
-            </div>
+                </div>
+            </details>
         </div>
     </section>
 
@@ -667,8 +778,9 @@
                 </div>
             </div>
 
-            <div class="note-box">
-                <h3><i class="fas fa-eraser"></i> Le droit à l'effacement, traité jusqu'au bout</h3>
+            <details class="note-box">
+                <summary><i class="fas fa-eraser"></i> Le droit à l'effacement, traité jusqu'au bout</summary>
+                <div class="note-body">
                 <p>
                     Supprimer une personne des fichiers <strong>ne la retire pas du
                     modèle</strong> : un modèle entraîné a mémorisé une part de
@@ -681,7 +793,8 @@
                     performance — et le modèle purgé remplace la production même sans
                     amélioration.
                 </p>
-            </div>
+                </div>
+            </details>
 
             <div class="doc-links">
                 <a class="doc-link" href="https://github.com/mneimy/churn-prediction/blob/main/docs/compliance/registre-traitements.md" target="_blank" rel="noopener">
@@ -705,116 +818,15 @@
                     <span>Art. 32 RGPD et hygiène ANSSI</span></span>
                 </a>
             </div>
-        </div>
-    </section>
 
-    <!-- Visualizations Section -->
-    <section id="visualisations" class="section solution-section">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-chart-bar"></i> Visualisations &amp; storytelling</h2>
-                <p style="color: var(--text-light); max-width: 720px; margin: 0.75rem auto 0;">
-                    Huit pages interactives qui déroulent le projet, du constat business
-                    jusqu'à la lecture technique. Chaque page se lit seule et renvoie vers la suivante.
+            <div class="jump-banner">
+                <p>
+                    <strong>Envie de voir plutôt que de lire ?</strong>
+                    Les huit pages interactives déroulent le même propos en graphiques.
                 </p>
-            </div>
-            <div class="viz-grid">
-                <div class="viz-card">
-                    <div class="card-icon"><i class="fas fa-exclamation-circle"></i></div>
-                    <span class="viz-tag business">1 · Business</span>
-                    <h3>Le problème</h3>
-                    <p>
-                        Comment l'inactivité fait grimper le churn et où se situent les segments
-                        à risque. Permet de fixer un seuil d'alerte opérationnel.
-                    </p>
-                    <a class="btn btn-primary" href="visualizations/01_probleme_churn.html">
-                        <i class="fas fa-chart-area"></i> Ouvrir
-                    </a>
-                </div>
-                <div class="viz-card">
-                    <div class="card-icon"><i class="fas fa-hourglass-half"></i></div>
-                    <span class="viz-tag business">2 · Business</span>
-                    <h3>Insight : délai d'achat</h3>
-                    <p>
-                        Le délai depuis la dernière commande est le signal d'alerte le plus fort.
-                        Au-delà de 60 jours, le risque de départ change de nature.
-                    </p>
-                    <a class="btn btn-primary" href="visualizations/insight_days_since_last_order.html">
-                        <i class="fas fa-chart-area"></i> Ouvrir
-                    </a>
-                </div>
-                <div class="viz-card">
-                    <div class="card-icon"><i class="fas fa-repeat"></i></div>
-                    <span class="viz-tag business">3 · Business</span>
-                    <h3>Insight : fréquence d'achat</h3>
-                    <p>
-                        La régularité des commandes distingue les clients installés des clients
-                        fragiles, indépendamment du montant dépensé.
-                    </p>
-                    <a class="btn btn-primary" href="visualizations/insight_purchase_frequency.html">
-                        <i class="fas fa-chart-area"></i> Ouvrir
-                    </a>
-                </div>
-                <div class="viz-card">
-                    <div class="card-icon"><i class="fas fa-users"></i></div>
-                    <span class="viz-tag business">4 · Business</span>
-                    <h3>Segmentation RFM</h3>
-                    <p>
-                        Où concentrer l'effort de rétention : champions, clients fidèles,
-                        clients à risque et clients perdus, avec leur poids réel.
-                    </p>
-                    <a class="btn btn-primary" href="visualizations/segmentation_rfm.html">
-                        <i class="fas fa-chart-area"></i> Ouvrir
-                    </a>
-                </div>
-                <div class="viz-card">
-                    <div class="card-icon"><i class="fas fa-brain"></i></div>
-                    <span class="viz-tag tech">5 · Technique</span>
-                    <h3>La solution ML</h3>
-                    <p>
-                        Les métriques de performance et les variables réellement prédictives,
-                        expliquées pour une audience business.
-                    </p>
-                    <a class="btn btn-primary" href="visualizations/02_solution_ml.html">
-                        <i class="fas fa-chart-area"></i> Ouvrir
-                    </a>
-                </div>
-                <div class="viz-card">
-                    <div class="card-icon"><i class="fas fa-sliders"></i></div>
-                    <span class="viz-tag tech">6 · Technique</span>
-                    <h3>Features importantes</h3>
-                    <p>
-                        Ce que le modèle regarde vraiment pour décider, et ce qu'il faut donc
-                        suivre dans un tableau de bord opérationnel.
-                    </p>
-                    <a class="btn btn-primary" href="visualizations/feature_importance.html">
-                        <i class="fas fa-chart-area"></i> Ouvrir
-                    </a>
-                </div>
-                <div class="viz-card">
-                    <div class="card-icon"><i class="fas fa-euro-sign"></i></div>
-                    <span class="viz-tag business">7 · Business</span>
-                    <h3>Impact business</h3>
-                    <p>
-                        Le scénario chiffré : baisse du churn, revenus préservés et ROI des
-                        campagnes de rétention déclenchées par le modèle.
-                    </p>
-                    <a class="btn btn-primary" href="visualizations/03_impact_business.html">
-                        <i class="fas fa-chart-area"></i> Ouvrir
-                    </a>
-                </div>
-                <div class="viz-card">
-                    <div class="card-icon"><i class="fas fa-layer-group"></i></div>
-                    <span class="viz-tag">8 · Synthèse</span>
-                    <h3>Dashboard complet</h3>
-                    <p>
-                        La vue d'ensemble en une page : churn, performance, segments et impact
-                        financier. Le support idéal pour une présentation rapide.
-                    </p>
-                    <a class="btn btn-primary" href="visualizations/00_dashboard_complet.html">
-                        <i class="fas fa-table-columns"></i> Ouvrir le dashboard
-                    </a>
-                </div>
+                <a class="btn btn-primary" href="#visualisations">
+                    <i class="fas fa-chart-area"></i> Voir les visualisations
+                </a>
             </div>
         </div>
     </section>

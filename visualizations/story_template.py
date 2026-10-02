@@ -24,6 +24,34 @@ STORY_ORDER = [
 ]
 
 
+def _position(filename):
+    """Rang de la page dans le parcours, et longueur du parcours."""
+    names = [item[0] for item in STORY_ORDER]
+    return (names.index(filename) + 1, len(STORY_ORDER)) if filename in names else (0, len(STORY_ORDER))
+
+
+def _index_pills(filename):
+    """
+    Index compact des huit pages, la courante marquee.
+
+    Sans lui, passer de la page 2 a la page 7 oblige a repasser par l'accueil
+    ou a enchainer cinq fois « suivant ». Le lecteur doit pouvoir sauter.
+    """
+    items = []
+    for rank, (target, label) in enumerate(STORY_ORDER, start=1):
+        if target == filename:
+            items.append(
+                f'<span class="story-pill is-current" aria-current="page">'
+                f'<span class="story-pill-rank">{rank}</span> {label}</span>'
+            )
+        else:
+            items.append(
+                f'<a class="story-pill" href="{target}">'
+                f'<span class="story-pill-rank">{rank}</span> {label}</a>'
+            )
+    return "\n                ".join(items)
+
+
 def _neighbours(filename):
     """Retourne (precedent, suivant) sous forme de tuples (fichier, libelle)."""
     names = [item[0] for item in STORY_ORDER]
@@ -67,6 +95,8 @@ def write_story_page(title, subtitle, paragraphs, fig, output_path, badge=None):
     fig_html = fig.to_html(full_html=False, include_plotlyjs="cdn")
     paragraphs_html = "\n            ".join(f"<p>{p}</p>" for p in paragraphs)
 
+    rank, total = _position(output_path.name)
+    pills = _index_pills(output_path.name)
     previous, following = _neighbours(output_path.name)
     prev_html = (
         f'<a class="btn btn-secondary" href="{previous[0]}">'
@@ -98,9 +128,10 @@ def write_story_page(title, subtitle, paragraphs, fig, output_path, badge=None):
     <nav class="viz-topbar">
         <div class="container">
             <p class="viz-breadcrumb">
-                <a href="../index.html">Prediction de Churn</a>
+                <a href="../index.html">Prédiction de Churn</a>
                 &rsaquo; <a href="../index.html#visualisations">Visualisations</a>
                 &rsaquo; {title}
+                <span class="viz-step">{rank} / {total}</span>
             </p>
             <a class="btn btn-secondary" href="../index.html#visualisations">
                 <i class="fas fa-arrow-left"></i> Retour au projet
@@ -122,10 +153,17 @@ def write_story_page(title, subtitle, paragraphs, fig, output_path, badge=None):
             {fig_html}
         </section>
 
-        <nav class="viz-actions">
+        <nav class="viz-actions" aria-label="Page précédente et suivante">
             {prev_html}
             <span class="spacer"></span>
             {next_html}
+        </nav>
+
+        <nav class="story-index" aria-label="Toutes les visualisations">
+            <p class="story-index-title">Les {total} visualisations</p>
+            <div class="story-pills">
+                {pills}
+            </div>
         </nav>
     </main>
 </body>
